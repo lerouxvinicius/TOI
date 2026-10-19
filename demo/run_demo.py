@@ -13,6 +13,7 @@ import subprocess
 import sys
 import threading
 import time
+import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -20,6 +21,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DB = ROOT / "dados_toi" / "live" / "toi_demo.sqlite"
 BACKEND = ("127.0.0.1", 8088)
 PUBLIC_PORT = 8099
+sys.path.insert(0, str(ROOT / "demo"))
+from seed_demo import DEMO_PASSWORD  # noqa: E402
 HOP_BY_HOP = {"connection", "keep-alive", "transfer-encoding", "upgrade", "proxy-connection"}
 
 
@@ -62,6 +65,19 @@ class PrefixProxy(BaseHTTPRequestHandler):
         pass
 
 
+def wait_backend(timeout_s=60):
+    deadline = time.monotonic() + timeout_s
+    while time.monotonic() < deadline:
+        try:
+            conn = http.client.HTTPConnection(*BACKEND, timeout=2)
+            conn.request("GET", "/login")
+            conn.getresponse().read()
+            conn.close()
+            return
+        except OSError:
+            time.sleep(0.5)
+
+
 def main() -> int:
     py = sys.executable
     seed_args = [py, str(ROOT / "demo" / "seed_demo.py"), "--follow"]
@@ -75,7 +91,15 @@ def main() -> int:
                                   "--db", str(DB), "--port", str(BACKEND[1])], cwd=ROOT)
     server = ThreadingHTTPServer(("127.0.0.1", PUBLIC_PORT), PrefixProxy)
     threading.Thread(target=server.serve_forever, daemon=True).start()
-    print(f"\nTOI demo: http://127.0.0.1:{PUBLIC_PORT}/toi/login  (usuário e senha em demo/seed_demo.py)\n")
+    wait_backend()
+    url = f"http://127.0.0.1:{PUBLIC_PORT}/toi/login"
+    print("\n" + "=" * 78)
+    print(f"  ABRA NO NAVEGADOR: {url}")
+    print(f"  Usuário: demo   Senha: {DEMO_PASSWORD}")
+    print("  (ignore o endereço 8088 acima: ele é interno e abre sem estilo)")
+    print("  Para parar: Ctrl+C")
+    print("=" * 78 + "\n", flush=True)
+    webbrowser.open(url)
     try:
         dashboard.wait()
     except KeyboardInterrupt:

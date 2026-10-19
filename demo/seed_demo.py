@@ -24,6 +24,7 @@ APP = ROOT / "TOI_v1.10.6_DUAL_LANE_ML_SHADOW"
 sys.path.insert(0, str(APP))
 
 import toi_collector_core_v3 as core  # noqa: E402
+import toi_ml_shadow_v1_10_6 as shadow  # noqa: E402
 import toi_shared_admin_v1 as admin  # noqa: E402
 
 DEMO_LOGIN = "demo"
@@ -141,6 +142,7 @@ def main() -> int:
 
     Path(args.db).parent.mkdir(parents=True, exist_ok=True)
     store = core.Store(args.db)
+    shadow.ensure(store.conn)
     rng = random.Random(args.seed)
     queues, gateways = load_queues(), load_gateways()
     now = datetime.now(timezone.utc).replace(microsecond=0)

@@ -7130,7 +7130,7 @@ def main():
     Handler.service._gateway_monitor.start()
     from toi_ml_weekly_review import start_weekly
     ml_review_stop = threading.Event()
-    ml_review_thread = start_weekly(ml_review_stop)
+    ml_review_thread = start_weekly(ml_review_stop, db)
     # R1.2.7: Radar has its own store; acquisition and D3 queries are unchanged.
     try:
         from toi_operational_radar_v1 import RadarService, configured_gateway_telegram
