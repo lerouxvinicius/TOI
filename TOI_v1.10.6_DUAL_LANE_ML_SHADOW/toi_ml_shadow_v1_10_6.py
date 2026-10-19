@@ -116,6 +116,15 @@ def build_prediction(con,inst,code,history_hours,min_samples):
     base={f:[float(r[f]) for r in rows[:-1] if r[f] is not None] for f in FIELDS}
     if any(len(values)<min_samples-1 for values in base.values()):return None
     cur={f:float(last[f]) for f in FIELDS}
+    trunk=latest_trunk(con,inst)
+    if trunk is None:return None
+    s=score_from_baseline(cur,base,trunk)
+    features={"current":cur,"robust_z":s['robust_z'],"trunk_max_pct":round(trunk,2),"samples":len(rows),"history_hours":history_hours,"source_ts":last['ts']}
+    return (datetime.now().astimezone().isoformat(timespec='seconds'),str(inst),str(code),'robust_mad_shadow_v0',s['risk'],s['anomaly'],s['risk_class'],
+            s['p34_signal'],s['p135_signal'],s['capacity_signal'],'; '.join(s['reasons']),json.dumps(features,ensure_ascii=False))
+
+def score_from_baseline(cur,base,trunk):
+    """Função pura do score shadow: valores atuais + baseline histórico -> risco explicável."""
     z={f:robust_z(cur[f],base[f]) for f in FIELDS}
 
     # Direções relevantes: congestionamento/tentativas/taxa para cima; hit rate para baixo.
@@ -124,8 +133,6 @@ def build_prediction(con,inst,code,history_hours,min_samples):
     hit_sig=max(0.0,-z['hit_rate15'])
     calls_sig=max(0.0,z['calls_dialing'])
     rate_sig=max(0.0,z['dialing_rate'])
-    trunk=latest_trunk(con,inst)
-    if trunk is None:return None
     cap_sig=clip((trunk-70.0)/10.0,0.0,4.0)
 
     anomaly=clip(max(p34_sig,p135_sig,hit_sig,calls_sig,rate_sig,cap_sig),0,8)
@@ -140,9 +147,9 @@ def build_prediction(con,inst,code,history_hours,min_samples):
     if calls_sig>=2:reasons.append(f'Discando acima do baseline ({calls_sig:.1f} MAD-z)')
     if cap_sig>=1:reasons.append(f'Pressão de troncos {trunk:.1f}%')
     if not reasons:reasons.append('Sem anomalia dominante no baseline robusto')
-    features={"current":cur,"robust_z":{k:round(v,3) for k,v in z.items()},"trunk_max_pct":round(trunk,2),"samples":len(rows),"history_hours":history_hours,"source_ts":last['ts']}
-    return (datetime.now().astimezone().isoformat(timespec='seconds'),str(inst),str(code),'robust_mad_shadow_v0',risk,round(anomaly,3),clazz,
-            round(p34_sig,3),round(p135_sig,3),round(cap_sig,3),'; '.join(reasons),json.dumps(features,ensure_ascii=False))
+    return {"risk":risk,"anomaly":round(anomaly,3),"risk_class":clazz,"p34_signal":round(p34_sig,3),
+            "p135_signal":round(p135_sig,3),"capacity_signal":round(cap_sig,3),"reasons":reasons,
+            "robust_z":{k:round(v,3) for k,v in z.items()}}
 
 def main():
     ap=argparse.ArgumentParser()

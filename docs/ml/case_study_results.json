@@ -1,0 +1,122 @@
+{
+  "generated_at": "2026-10-19T21:28:49+00:00",
+  "data": "SINTÉTICA — gerada por demo/ml_case_study.py (seed 7); não representa produção",
+  "goal": "Alerta antecipado: P34 ou P135 >= 20% nos próximos 15 minutos, com a fila ainda abaixo do limite",
+  "evaluation": "Split cronológico 70/30, embargo de 15 min entre treino e teste, amostragem a cada 5 min",
+  "queues": [
+    {
+      "instancia": "4",
+      "fila": "0249700009",
+      "observations": 1687,
+      "train_end": "2026-10-14T14:11:00+00:00",
+      "test_start": "2026-10-14T14:31:00+00:00",
+      "train_positives": 68,
+      "test_positives": 47,
+      "test_positive_episodes_approx": 16,
+      "rule_current_congestion": {
+        "samples": 507,
+        "positives": 47,
+        "prevalence": 0.0927,
+        "average_precision": 0.55891,
+        "roc_auc": 0.88543,
+        "precision_top_5pct": 0.65385,
+        "recall_top_5pct": 0.3617
+      },
+      "existing_shadow": {
+        "samples": 507,
+        "positives": 47,
+        "prevalence": 0.0927,
+        "average_precision": 0.66926,
+        "roc_auc": 0.86563,
+        "precision_top_5pct": 0.84615,
+        "recall_top_5pct": 0.46809
+      },
+      "candidate_hist_gradient_boosting": {
+        "samples": 507,
+        "positives": 47,
+        "prevalence": 0.0927,
+        "average_precision": 0.64768,
+        "roc_auc": 0.90247,
+        "precision_top_5pct": 0.76923,
+        "recall_top_5pct": 0.42553
+      },
+      "decision": "CANDIDATO_APENAS_SHADOW; FALTAM_ROTULOS_DE_INCIDENTE_E_VALIDACAO_PROSPECTIVA"
+    },
+    {
+      "instancia": "5",
+      "fila": "0247400046",
+      "observations": 1772,
+      "train_end": "2026-10-14T14:58:00+00:00",
+      "test_start": "2026-10-14T15:18:00+00:00",
+      "train_positives": 37,
+      "test_positives": 30,
+      "test_positive_episodes_approx": 10,
+      "rule_current_congestion": {
+        "samples": 532,
+        "positives": 30,
+        "prevalence": 0.05639,
+        "average_precision": 0.47313,
+        "roc_auc": 0.874,
+        "precision_top_5pct": 0.51852,
+        "recall_top_5pct": 0.46667
+      },
+      "existing_shadow": {
+        "samples": 532,
+        "positives": 30,
+        "prevalence": 0.05639,
+        "average_precision": 0.6221,
+        "roc_auc": 0.92507,
+        "precision_top_5pct": 0.62963,
+        "recall_top_5pct": 0.56667
+      },
+      "candidate_hist_gradient_boosting": {
+        "samples": 532,
+        "positives": 30,
+        "prevalence": 0.05639,
+        "average_precision": 0.66947,
+        "roc_auc": 0.9342,
+        "precision_top_5pct": 0.77778,
+        "recall_top_5pct": 0.7
+      },
+      "decision": "CANDIDATO_APENAS_SHADOW; FALTAM_ROTULOS_DE_INCIDENTE_E_VALIDACAO_PROSPECTIVA"
+    },
+    {
+      "instancia": "6",
+      "fila": "0255800003",
+      "observations": 1714,
+      "train_end": "2026-10-14T15:24:00+00:00",
+      "test_start": "2026-10-14T15:44:00+00:00",
+      "train_positives": 73,
+      "test_positives": 25,
+      "test_positive_episodes_approx": 9,
+      "rule_current_congestion": {
+        "samples": 515,
+        "positives": 25,
+        "prevalence": 0.04854,
+        "average_precision": 0.46968,
+        "roc_auc": 0.90159,
+        "precision_top_5pct": 0.46154,
+        "recall_top_5pct": 0.48
+      },
+      "existing_shadow": {
+        "samples": 515,
+        "positives": 25,
+        "prevalence": 0.04854,
+        "average_precision": 0.74145,
+        "roc_auc": 0.92633,
+        "precision_top_5pct": 0.69231,
+        "recall_top_5pct": 0.72
+      },
+      "candidate_hist_gradient_boosting": {
+        "samples": 515,
+        "positives": 25,
+        "prevalence": 0.04854,
+        "average_precision": 0.75306,
+        "roc_auc": 0.95118,
+        "precision_top_5pct": 0.69231,
+        "recall_top_5pct": 0.72
+      },
+      "decision": "CANDIDATO_APENAS_SHADOW; FALTAM_ROTULOS_DE_INCIDENTE_E_VALIDACAO_PROSPECTIVA"
+    }
+  ]
+}

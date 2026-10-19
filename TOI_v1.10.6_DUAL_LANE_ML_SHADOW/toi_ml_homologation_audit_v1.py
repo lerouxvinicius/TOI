@@ -72,7 +72,7 @@ def _queue_frame(conn: sqlite3.Connection, inst: str, code: str, since: str) -> 
     future = bad.iloc[::-1].rolling(15, min_periods=1).max().iloc[::-1].shift(-1)
     coverage = valid.iloc[::-1].rolling(15, min_periods=1).sum().iloc[::-1].shift(-1)
     rows["target"] = future.where(coverage >= 10)
-    rows["currently_below_threshold"] = valid & ~bad.fillna(False).astype(bool)
+    rows["currently_below_threshold"] = valid & ~bad.eq(True)
     for col in ("p34_pct", "p135_pct", "calls_dialing"):
         rows[{"p34_pct": "p34_5m", "p135_pct": "p135_5m",
               "calls_dialing": "calls_5m"}[col]] = rows[col].rolling(5, min_periods=2).mean()
