@@ -78,17 +78,42 @@ Python 3.12 · pandas · NumPy · scikit-learn · SQLite · matplotlib · pysnmp
 
 ## Rodando
 
-```bash
-python -m venv .venv
-.venv\Scripts\activate          # Linux/macOS: source .venv/bin/activate
-pip install -r requirements.txt
+Requer [Python](https://www.python.org/downloads/) 3.10 ou mais novo e [Git](https://git-scm.com/downloads). Todos os comandos rodam **dentro da pasta do projeto**. Copie e rode uma linha por vez.
 
-python demo/ml_case_study.py                          # estudo de caso de ML -> docs/ml/
-python demo/run_demo.py                               # painel com dados fictícios
-python -m unittest discover -s tests -p "test_*.py"   # 56 testes
+**1. Baixe o projeto e entre na pasta:**
+
+```bash
+git clone https://github.com/lerouxvinicius/TOI.git
+cd TOI
 ```
 
-O painel abre em **http://127.0.0.1:8099/toi/login** com o usuário `demo`. A senha está em [`demo/seed_demo.py`](demo/seed_demo.py).
+**2. Crie o ambiente virtual e instale as dependências.**
+
+No Windows (Prompt de Comando):
+
+```bat
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+No Linux ou macOS:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+**3. Escolha o que rodar:**
+
+| O que faz | Comando |
+|---|---|
+| Estudo de caso de ML: gera métricas e gráficos em `docs/ml/` (cerca de 1 min) | `python demo/ml_case_study.py` |
+| Testes: os 56 testes do projeto | `python -m unittest discover -s tests -p "test_*.py"` |
+| Painel com dados fictícios. Abra http://127.0.0.1:8099/toi/login com o usuário `demo` (a senha está em [`demo/seed_demo.py`](demo/seed_demo.py)) e use `Ctrl+C` para parar | `python demo/run_demo.py` |
+
+Se o prompt já mostra `(.venv)`, o ambiente está ativo. Ao abrir um terminal novo, entre na pasta `TOI` e rode de novo só a linha de ativação.
 
 ## Estrutura
 
