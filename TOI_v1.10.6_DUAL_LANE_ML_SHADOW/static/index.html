@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TOI — Telecom Operational Intelligence</title>
+<link rel="icon" type="image/svg+xml" href="/toi/favicon.svg">
+<link rel="stylesheet" href="/toi/styles.css">
+<style id="h3UiClosureStyles">
+/* H3 UI Closure: executive Highlights compact/readable without hiding detail. */
+.period-highlights{overflow-y:auto !important;overflow-x:hidden !important;padding:2px 0 !important}
+.timeline-item{
+  box-sizing:border-box;
+  height:42px !important;
+  min-height:42px !important;
+  display:grid !important;
+  grid-template-columns:42px 18px minmax(0,1fr) !important;
+  grid-template-rows:18px 15px !important;
+  align-content:center !important;
+  align-items:center !important;
+  column-gap:6px !important;
+  row-gap:1px !important;
+  padding:3px 7px !important;
+  font-size:10px !important;
+  overflow:hidden;
+}
+.timeline-time{grid-column:1;grid-row:1/3;align-self:center;white-space:nowrap;font-size:9px;line-height:14px}
+.event-dot{grid-column:2;grid-row:1/3;align-self:center;width:15px;height:15px;font-size:8px;line-height:15px}
+.timeline-item>b{grid-column:3;grid-row:1;align-self:center;display:block;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:10px;line-height:14px !important;margin:0 !important;padding:0 !important}
+.timeline-value{grid-column:3;grid-row:2;align-self:center;display:block;min-width:0;max-width:none !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:9px;line-height:13px !important;margin:0 !important;padding:0 !important;color:#9eb2bf}
+.timeline-item:hover>b,.timeline-item:hover>.timeline-value{color:#e8f6ff}
+
+/* Gateway raw chronology: technical rows must be readable and precise to seconds. */
+.gateway-event-list{margin-top:12px;border:1px solid #173f54;border-radius:7px;padding:10px 12px;background:#062333}
+.gateway-event-list>b{display:block;margin-bottom:8px;font-size:12px;line-height:1.35;color:#d7edf7}
+.gateway-event-list>span{display:grid;grid-template-columns:132px 74px minmax(0,1fr);gap:12px;align-items:center;min-height:36px;padding:7px 8px;border-top:1px solid #174055}
+.gateway-event-list>span:first-of-type{border-top:0}
+.gateway-event-list strong{font-size:11.5px;line-height:1.3;white-space:nowrap;color:#e5f3f8}
+.gateway-event-list i{font-size:11.5px;line-height:1.3;font-style:normal;font-weight:700;color:#ffc247;white-space:nowrap}
+.gateway-event-list small{font-size:11px;line-height:1.4;color:#afc3cd;overflow-wrap:anywhere}
+.gateway-event-list.empty{font-size:11px;line-height:1.45;color:#aebfc9}
+
+
+/* H3 Incident History UI Closure: one lifecycle = one narrative; same source as Highlights/Recent Incidents. */
+.incident-history-intro{border-left:4px solid #49d47c;background:#083c34;padding:12px 14px;border-radius:6px;margin-bottom:14px;line-height:1.45}
+.incident-history-intro b{color:#e8fff0}
+.incident-history-list{display:grid;gap:12px}
+.incident-history-card{border:1px solid #1b4b62;background:#062333;border-radius:8px;overflow:hidden}
+.incident-history-card.active{border-left:4px solid #ff4d5a}.incident-history-card.resolved{border-left:4px solid #45ce78}
+.incident-history-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:12px 14px;border-bottom:1px solid #173f54}
+.incident-history-head h4{margin:0 0 4px;font-size:15px;color:#eef9fd}.incident-history-head p{margin:0;color:#9db3bf;font-size:11px}
+.incident-history-status{flex:0 0 auto;border:1px solid #376070;border-radius:4px;padding:4px 7px;font-size:10px;font-weight:700}
+.incident-history-status.active{border-color:#c6434b;color:#ff6a71;background:#2c151a}.incident-history-status.resolved{border-color:#2f8c58;color:#61db8d;background:#0b2b1a}
+.incident-history-rail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:12px 14px;background:#071f2d}
+.incident-history-step{border:1px solid #174055;border-radius:6px;padding:9px 10px;min-height:56px}.incident-history-step span{display:block;color:#7fcdea;font-size:9px;text-transform:uppercase;letter-spacing:.03em}.incident-history-step b{display:block;margin-top:4px;font-size:12px;color:#edf8fc}.incident-history-step small{display:block;margin-top:3px;color:#9db3bf;font-size:10px}
+.incident-history-body{padding:12px 14px}.incident-history-body>p{margin:0 0 10px;line-height:1.5;color:#d2e4eb}
+.incident-history-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0}
+.incident-history-fact{border:1px solid #174055;border-radius:6px;padding:8px 9px;background:#082a3a}.incident-history-fact span{display:block;color:#8ba7b4;font-size:9px}.incident-history-fact b{display:block;margin-top:3px;color:#e6f5fa;font-size:11px;overflow-wrap:anywhere}
+.incident-history-note{border-left:3px solid #d4a62f;background:#2b250b;padding:9px 11px;border-radius:5px;color:#d8d0a8;font-size:10px;line-height:1.45}
+.incident-history-empty{padding:22px;text-align:center;color:#9bb1bc;border:1px dashed #285166;border-radius:8px}
+@media(max-width:1100px){.incident-history-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.incident-history-rail{grid-template-columns:1fr}}
+
+@media(max-width:1100px){
+  .gateway-event-list>span{grid-template-columns:120px 68px minmax(0,1fr);gap:8px}
+}
+</style>
+</head>
+<body>
+<div id="loginScreen" class="legacy-login" aria-label="Acesso ao TOI">
+  <div class="legacy-login-card">
+    <div class="legacy-login-brand"><b>TOI</b><span>Telecom Operational<br>Intelligence</span><img src="/toi/assets/toi-logo.svg" alt="TOI"></div>
+    <div class="legacy-login-rule"></div>
+    <small>ACME · INTELIGÊNCIA OPERACIONAL</small>
+    <h1>Sua operação.<br>Em perspectiva.</h1>
+    <p>Entre com sua conta do TOI. Sua senha inicial deverá ser alterada no primeiro acesso.</p>
+    <form id="legacyLoginForm">
+      <label>Login<input name="login" autocomplete="username" required></label>
+      <label>Senha<input name="password" type="password" autocomplete="current-password" required></label>
+      <button type="submit">Entrar no TOI <span>→</span></button>
+    </form>
+    <form id="legacyPasswordForm" hidden>
+      <p>Primeiro acesso: defina sua senha exclusiva do TOI antigo.</p>
+      <label>Senha inicial<input name="current_password" type="password" autocomplete="current-password" required></label>
+      <label>Nova senha (mínimo 10; maiúscula, minúscula, número e especial)<input name="new_password" type="password" autocomplete="new-password" minlength="10" required></label>
+      <label>Confirmar nova senha<input name="confirm_password" type="password" autocomplete="new-password" minlength="10" required></label>
+      <button type="submit">Salvar senha e entrar <span>→</span></button>
+    </form>
+    <p id="legacyLoginError" class="legacy-login-error" role="alert"></p>
+      <small>Acesso controlado · Acessos auditados</small>
+  </div>
+  <div class="legacy-login-message"><div class="legacy-login-orb"></div><p>Observe o presente.<br><strong>Prepare a próxima ação.</strong></p><small>OPERAÇÃO / CAPACIDADE / INTELIGÊNCIA</small></div>
+</div>
+<div id="fitWrap">
+  <div id="goldenStage">
+    <header class="global-header">
+      <button id="mobileMenuToggle" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <div class="brand">
+        <b>TOI</b>
+        <span>Telecom Operational<br>Intelligence</span>
+        <img src="/toi/assets/toi-logo.svg" alt="TOI">
+      </div>
+      <div class="header-user">
+        <button id="toiAiOpen" class="toi-ai-open" type="button">✦ Pergunte ao TOI</button>
+        <div class="account-online header-environment"><i></i> Ambiente Operacional</div>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <div class="nav-section">VISÃO EXECUTIVA</div>
+      <div class="nav active"><i class="nav-ico">▣</i><span>Visão Geral</span></div>
+      <div class="nav"><i class="nav-ico">♟</i><span>Alertas e Incidentes</span></div>
+      <div class="nav"><i class="nav-ico">◈</i><span>Resumo por Instância</span></div>
+
+      <div class="nav-section">OPERAÇÃO</div>
+      <div class="nav"><i class="nav-ico">▦</i><span>Filas</span></div>
+      <div class="nav"><i class="nav-ico">●</i><span>Agentes</span></div>
+      <div class="nav"><i class="nav-ico">●</i><span>Discador</span></div>
+      <div class="nav"><i class="nav-ico">◌</i><span>Mailing & Campanhas</span></div>
+
+      <div class="nav-section">INFRAESTRUTURA</div>
+      <div id="navGatewayAnalytics" class="nav actionable"><i class="nav-ico">◌</i><span>Gateways</span></div>
+      <div id="navTrunkAnalytics" class="nav actionable"><i class="nav-ico">◌</i><span>Grupos de Troncos</span></div>
+      <div id="navStuckAnalytics" class="nav actionable"><i class="nav-ico">◌</i><span>Canais Travados</span></div>
+      <div class="nav"><i class="nav-ico">◌</i><span>SIP Servers</span></div>
+
+      <div class="nav-section">INTELIGÊNCIA</div>
+      <div class="nav"><i class="nav-ico">✦</i><span>Diagnóstico Automático</span></div>
+      <div class="nav"><i class="nav-ico">⌁</i><span>Correlações</span></div>
+      <div class="nav"><i class="nav-ico">◫</i><span>Padrões & Recorrências</span></div>
+      <div id="navCapacityAnalytics" class="nav actionable"><i class="nav-ico">▧</i><span>Análise de Capacidade</span></div>
+      <div class="nav"><i class="nav-ico">✓</i><span>Recomendações</span></div>
+
+      <div class="nav-section">RELATÓRIOS</div>
+      <div class="nav muted"><i class="nav-ico">▣</i><span>Incidentes</span></div>
+      <div class="nav muted"><i class="nav-ico">▥</i><span>Comparativo</span></div>
+      <div class="nav muted"><i class="nav-ico">⇩</i><span>Exportações</span></div>
+
+      <div class="nav-section">ADMINISTRAÇÃO</div>
+      <div class="nav muted"><i class="nav-ico">◇</i><span>Instâncias</span></div>
+      <div class="nav muted"><i class="nav-ico">♙</i><span>Usuários</span></div>
+      <div class="nav muted"><i class="nav-ico">⚙</i><span>Configurações</span></div>
+
+      <div class="sidebar-account">
+        <strong id="signedUserName">TOI</strong>
+        <span id="signedUserLogin">—</span>
+        <small id="signedUserRole">—</small>
+        <button id="changePasswordOpen" type="button">Alterar senha</button>
+        <button id="legacyLogout" type="button">Sair da conta ›</button>
+      </div>
+
+      <div class="about">ⓘ <span>Sobre o Sistema</span></div>
+      <div class="version">v1.10.6.3.7.5 R1.2.4 H3-UI-FINAL-IH1</div>
+    </aside>
+
+    <main class="main">
+      <section class="filters">
+        <label>
+          <span>Instância</span>
+          <select id="instanceSelect"></select>
+        </label>
+        <label class="queue-field">
+          <span>Fila</span>
+          <select id="queueSelect"></select>
+        </label>
+        <label class="compact-period"><span>Período</span><select id="periodSelect"><option value="live">Tempo real</option><option value="5m">5 min</option><option value="15m" selected>15 min</option><option value="30m">30 min</option><option value="1h">60 min</option><option value="2h">2 h</option><option value="6h">6 h</option><option value="1d">24 h</option><option value="7d">7 dias</option><option value="14d">14 dias</option><option value="30d">30 dias</option><option value="custom">Personalizado</option></select></label>
+        <label class="refresh-field"><span>Atualização</span><select id="refreshSelect"><option value="5">Tempo real · 5 s</option><option value="10" selected>10 s</option><option value="15">15 s</option><option value="30">30 s</option><option value="60">60 s</option><option value="0">Pausada</option></select></label>
+        <div class="period-block">
+          <span>Período</span>
+          <div class="periods">
+            <button data-p="5m">5 min</button>
+            <button data-p="15m" class="active">15 min</button>
+            <button data-p="30m">30 min</button>
+            <button data-p="1h">60 min</button>
+            <button data-p="2h">2H</button>
+            <button data-p="6h">6H</button>
+            <button data-p="1d">24H</button>
+            <button data-p="7d">7 dias</button>
+            <button data-p="14d">14 dias</button>
+            <button data-p="30d">30 dias</button>
+            <button id="customPeriodBtn" class="custom" type="button">▣ Personalizado</button>
+          </div>
+        </div>
+        <div class="update">
+          <div class="update-topline">
+            <span id="updatedAt">Atualizado: —</span>
+            <span id="qualitySummaryBadge" class="quality-summary-badge neutral">QUALIDADE —</span>
+          </div>
+          <div id="sourceBadges" class="source-badges" aria-label="Freshness por fonte"></div>
+        </div>
+      </section>
+
+      <section class="top-row">
+        <article class="panel health-panel removed-overview-card" aria-hidden="true">
+          <h3>SAÚDE OPERACIONAL DA FILA</h3>
+          <div class="health-body">
+            <div class="score-col">
+              <div class="score-ring"><strong id="healthScore">—</strong><small>/100</small></div>
+              <div id="healthLabel" class="score-label">—</div>
+              <div id="trendLabel" class="trend">Tendência: —</div>
+            </div>
+            <div class="diagnostic">
+              <small>Diagnóstico automático</small>
+              <h2 id="diagTitle">Carregando...</h2>
+              <p id="diagText">—</p>
+            </div>
+            <div class="factors">
+              <small>Alertas de infraestrutura</small>
+              <div id="factors" class="infra-alerts-panel"></div>
+            </div>
+            <div class="diagnostic-gates" aria-label="Governança do diagnóstico">
+              <div class="gate-metric">
+                <span>Confiança</span>
+                <b id="confidence">—</b>
+                <div class="gate-track"><i id="confidenceBar"></i></div>
+              </div>
+              <div class="gate-metric coverage-gate">
+                <span>Cobertura</span>
+                <b id="coverageGateValue">—</b>
+                <em id="coverageGateBadge" class="coverage-gate-badge neutral">—</em>
+                <div class="gate-track"><i id="coverageGateBar"></i></div>
+              </div>
+              <div class="gate-mode">
+                <span>Leitura</span>
+                <em id="diagnosticModeBadge" class="diagnostic-mode-badge neutral">AGUARDANDO</em>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel incident-panel removed-overview-card" aria-hidden="true">
+          <h3>SITUAÇÃO ATUAL</h3>
+          <div class="incident-body">
+            <div class="incident-left">
+              <div class="status-triad" aria-label="Estados independentes do TOI">
+                <span id="operationStatusChip" class="state-chip neutral">OPERAÇÃO —</span>
+                <span id="dataStatusChip" class="state-chip neutral">DADOS —</span>
+                <span id="platformStatusChip" class="state-chip neutral">TOI —</span>
+                <span id="gatewayStatusChip" class="state-chip neutral">GW —</span>
+              </div>
+              <div id="systemHealthExecutive" class="system-health-exec executive-hidden" aria-hidden="true"></div>
+              <div id="incidentState" class="incident-state">● —</div>
+              <div id="mlExecutiveSummary" class="ml-exec-summary compact">ML SHADOW —</div>
+              <div id="incidentTiming" class="incident-timing" hidden>
+                <span>Início <b id="incidentStart">—</b></span>
+                <span>Duração <b id="incidentDuration">—</b></span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article id="operationalPressurePanel" class="panel telecom-pressure-panel actionable-pressure" title="Abrir análise da Pressão Operacional e Capacidade">
+          <div class="pressure-head"><h3>PRESSÃO OPERACIONAL E CAPACIDADE</h3></div>
+          <div id="telecomPressure" class="telecom-pressure-body">
+            <div class="telecom-pressure-scope">PERÍODO —</div>
+            <strong>—</strong>
+            <span>pressão observacional —</span>
+            <small>Fatores contribuintes —</small>
+          </div>
+          <div id="pressureCapacitySummary" class="pressure-capacity-summary">Capacidade: aguardando dados.</div>
+        </article>
+
+        <article class="panel top-row-slot" aria-hidden="true"></article>
+
+        <article class="panel recent">
+          <h3>INCIDENTES RECENTES</h3>
+          <div id="agiroutePanel" class="agiroute-panel" hidden aria-live="polite"><b>Agiroute · Inst. 6</b><span id="agirouteStatus">Aguardando primeira verificação.</span></div>
+          <div id="recentIncidents" class="recent-body"></div>
+          <button id="openIncidentHistory" type="button" class="panel-link panel-link-button">Ver histórico de incidentes →</button>
+        </article>
+
+        <article class="panel top-row-slot" aria-hidden="true"></article>
+
+        <article id="catalogQueuePreview" class="panel catalog-queue-preview" hidden aria-live="polite">
+          <h3>FILA DO PORTAL ORBE · INVENTÁRIO COMPLETO</h3>
+          <div class="catalog-preview-body"><div><b id="catalogQueueName">—</b><span id="catalogQueueSource">—</span><small>Leitura pontual do monitor. Histórico, agentes, troncos e ML aguardam coleta detalhada.</small></div><div class="catalog-preview-metric"><span>Na Companhia · P34</span><strong id="catalogP34">—</strong></div><div class="catalog-preview-metric"><span>Interno · P135</span><strong id="catalogP135">—</strong></div></div>
+        </article>
+
+      </section>
+
+      <section id="kpis" class="kpi-row"></section>
+
+      <section class="middle-row">
+        <article class="panel evolution-panel">
+          <h3 class="evolution-heading">
+            <span id="evolutionTitle">EVOLUÇÃO TEMPORAL SINCRONIZADA</span>
+            <span class="chart-meta" aria-label="Contexto do gráfico">
+              <span id="operationalContextLabel" class="operational-context-label"></span>
+              <span id="coverageLabel" class="coverage-label"></span>
+              <span id="temporalModeLabel" class="temporal-mode-label"></span>
+              <span id="chartZoomStatus" class="temporal-mode-label" title="Use a roda do mouse sobre o gráfico para ampliar/reduzir a escala temporal. Arraste horizontalmente para mover a janela. Duplo clique restaura a visão completa.">Roda do mouse: zoom · arraste: mover</span>
+              <button id="chartZoomReset" type="button" class="temporal-mode-label" title="Restaurar a janela temporal completa" style="cursor:pointer;background:transparent;color:inherit;border:1px solid currentColor;border-radius:3px;padding:1px 5px">Reset zoom</button>
+              <span class="chart-axis-label">Eixo dir.: Chamadas</span>
+            </span>
+          </h3>
+          <div class="legend">
+            <span style="--c:#ff3d45">■ P135 (%)</span>
+            <span style="--c:#ff4fd8">■ P34 (%)</span>
+            <span style="--c:#ff9818">■ Hit Rate 15' (%)</span>
+            <span style="--c:#179fe3">■ Discando</span>
+            <span style="--c:#25a9bf">■ Em Atendimento</span>
+            <span style="--c:#74d21d">■ Ocupação Troncos (%)</span>
+            <span style="--c:#ffb316">■ Canais Travados</span>
+            <span style="--c:#8751e4">■ Eventos</span>
+          </div>
+          <div class="chart-box"><canvas id="mainChart"></canvas></div>
+        </article>
+
+        <article id="radarPanel" class="panel radar-panel" aria-labelledby="radarTitle">
+          <header class="radar-head"><h3 id="radarTitle">RADAR OPERACIONAL</h3><button id="radarExpand" type="button">Ampliar ↗</button></header>
+          <div id="radarCounts" class="radar-counts" aria-live="polite">Conectando…</div>
+          <div class="radar-toolbar">
+            <div class="radar-tabs" role="tablist" aria-label="Visão do Radar">
+              <button id="radarNowTab" role="tab" aria-selected="true" aria-controls="radarNow" type="button">Agora · global</button>
+              <button id="radarPeriodTab" role="tab" aria-selected="false" aria-controls="radarPeriod" type="button">No período</button>
+            </div>
+            <button id="radarPause" type="button" aria-pressed="false" title="Pausar a rolagem automática">Pausar</button>
+            <button id="radarSound" type="button" aria-pressed="false">Ativar som</button>
+          </div>
+          <div id="radarSource" class="radar-source" role="status">Aguardando as fontes…</div>
+          <div id="radarNow" class="radar-scroll" role="tabpanel" aria-labelledby="radarNowTab" tabindex="0"></div>
+          <div id="radarPeriod" class="radar-scroll" role="tabpanel" aria-labelledby="radarPeriodTab" tabindex="0" hidden>
+            <div id="radarPeriodScope" class="radar-scope"></div>
+            <div id="timeline"></div>
+            <button id="radarMore" type="button" hidden>Carregar mais eventos</button>
+          </div>
+          <footer class="radar-foot">Ciente registra o reconhecimento. A normalização depende da fonte.</footer>
+        </article>
+      </section>
+
+      <section class="detail-row">
+        <article class="panel detail agents-card">
+          <h3>DISTRIBUIÇÃO DOS AGENTES <em>(agora)</em></h3>
+          <div class="agents-body">
+            <div>
+              <div class="agent-total-caption">Total de agentes: <b id="agentTotalCaption">—</b></div>
+              <div class="agent-donut"><strong id="agentTotal">—</strong><small>Agentes</small></div>
+            </div>
+            <div id="agents" class="agent-list"></div>
+          </div>
+          <div class="panel-link">Ver detalhes dos agentes →</div>
+        </article>
+
+        <article class="panel detail table-card">
+          <h3>OCUPAÇÃO POR GRUPO DE TRONCOS <em>(agora)</em><span id="trunkInventoryMeta" class="inventory-meta">—</span></h3>
+          <div class="table-head trunk"><span>Grupo de Troncos</span><span>Ocupação</span><span>Usados / total</span><span>Agora</span></div>
+          <div id="trunks" class="table-body"></div>
+          <button id="allTrunksBtn" type="button" class="panel-link panel-link-button">Ver todos os grupos →</button>
+        </article>
+
+        <article class="panel detail table-card">
+          <h3>GATEWAYS <em>(agora)</em><span id="gatewayInventoryMeta" class="inventory-meta">—</span></h3>
+          <div class="table-head gateway"><span>Gateway</span><span>Ocupação</span><span>Usados / total</span><span>Agora</span></div>
+          <div id="gateways" class="table-body"></div>
+          <button id="allGatewaysBtn" type="button" class="panel-link panel-link-button">Ver estatísticas dos Gateways →</button>
+        </article>
+
+        <article class="panel detail dialer-card">
+          <h3>ESTATÍSTICAS DO DISCADOR <em>(LIVE · 15m)</em></h3>
+          <div id="dialer" class="dialer"></div>
+          <div class="panel-link">Ver detalhamento do discador →</div>
+        </article>
+
+        <article class="panel detail stuck-card">
+          <h3>CANAIS TRAVADOS <em>(agora)</em></h3>
+          <div class="stuck-main">
+            <div class="stuck-donut"><strong id="stuckCount">—</strong><small>Canais</small></div>
+            <div id="stuckLegend" class="stuck-legend"></div>
+          </div>
+          <div id="stuckDuration" class="stuck-duration">Maior duração travado: —</div>
+          <div id="openStuckAnalytics" class="panel-link actionable-link">Ver análise de canais →</div>
+        </article>
+      </section>
+
+      <section class="footer-row">
+        <article class="panel recommendations">
+          <h3>RECOMENDAÇÕES AUTOMÁTICAS <span id="recCount" class="tag">—</span></h3>
+          <div id="recommendations" class="rec-grid"></div>
+        </article>
+
+        <article class="panel capacity removed-overview-card" aria-hidden="true">
+          <h3>PRESSÃO DE CAPACIDADE</h3>
+          <div id="capacity" class="capacity-body"></div>
+          <div id="openCapacityAnalytics" class="panel-link actionable-link">Ver análise completa da capacidade →</div>
+        </article>
+
+        <article id="sbcMonitorCard" class="panel sbc-monitor-card" aria-labelledby="sbcMonitorTitle">
+          <h3 id="sbcMonitorTitle">SBC · DISPONIBILIDADE E INCIDENTES</h3>
+          <div id="sbcMonitorBody" class="sbc-monitor-body" role="status">Aguardando amostra do Monitor_alertas…</div>
+        </article>
+
+        <dialog id="sbcTrafficDialog" class="sbc-traffic-dialog" aria-labelledby="sbcTrafficTitle">
+          <header><h2 id="sbcTrafficTitle">Sessões dos SBCs</h2><button type="button" id="sbcTrafficClose" aria-label="Fechar">×</button></header>
+          <div class="sbc-traffic-filters">
+            <label>Dia <input type="date" id="sbcTrafficDate"></label>
+            <label>Hora <select id="sbcTrafficHour"><option value="">Dia inteiro</option></select></label>
+            <label>Realm <select id="sbcTrafficRealm"><option value="">Todos</option></select></label>
+            <button type="button" id="sbcTrafficSearch">Buscar</button>
+            <small id="sbcTrafficStatus" class="sbc-traffic-muted" aria-live="polite"></small>
+          </div>
+          <div id="sbcTrafficBody" role="status">Selecione um par SBC.</div>
+        </dialog>
+
+        <article class="panel ipbx-actions-panel">
+          <h3>BUSCA DE CHAMADAS</h3>
+          <div class="trace-actions"><button type="button" data-blocked-queue="0247400046">Fila 0247400046</button><button type="button" data-blocked-queue="0247400047">Fila 0247400047</button></div>
+          <span id="traceMessage" class="trace-message" role="status">Escolha a fila, o período e o Status IPBX. Ao concluir, baixe a planilha com os dados das operadoras.</span>
+          <div id="blockedCarrierSummary" class="blocked-carrier-summary" hidden aria-live="polite"></div>
+        </article>
+      </section>
+
+      <section class="ml-row" aria-label="Observabilidade do Machine Learning Shadow">
+        <article class="panel ml-shadow-panel" id="mlShadowCard" role="button" tabindex="0" aria-label="Abrir relatório de avaliação do ML Shadow">
+          <h3>
+            ML SHADOW — OBSERVABILIDADE
+            <span class="ml-mode-badge">SOMENTE OBSERVAÇÃO</span>
+            <span id="mlValidationBadge" class="ml-validation-badge" title="O modelo ainda não foi homologado como preditor operacional">MODELO EM AVALIAÇÃO</span>
+            <span id="mlGateBadge" class="ml-gate-badge neutral">AGUARDANDO</span>
+            <span id="mlContextBadge" class="ml-context-badge neutral">CONTEXTO —</span>
+            <span class="ml-open-hint">Ver avaliação ›</span>
+          </h3>
+          <div class="ml-shadow-body">
+            <div class="ml-risk-block">
+              <div id="mlRiskRing" class="ml-risk-ring">
+                <strong id="mlRiskScore">—</strong><small>/100</small>
+              </div>
+              <div id="mlRiskClass" class="ml-risk-class neutral">AGUARDANDO</div>
+              <div class="ml-risk-caption">ranking Shadow · não é probabilidade</div>
+            </div>
+
+            <div class="ml-meta-block">
+              <div class="ml-meta-row"><span>Modelo</span><b id="mlModelVersion">—</b></div>
+              <div class="ml-meta-row"><span>Última inferência</span><b id="mlInferenceTime">—</b></div>
+              <div class="ml-meta-row"><span>Idade da inferência</span><b id="mlInferenceAge">—</b></div>
+              <div class="ml-meta-row"><span>Baseline</span><b id="mlBaseline">—</b></div>
+              <div class="ml-meta-row"><span>Entradas ML</span><b id="mlInputQuality">—</b></div>
+            </div>
+
+            <div class="ml-explain-block">
+              <small>Leitura do modelo</small>
+              <div id="mlExplanation" class="ml-explanation">Aguardando uma inferência válida.</div>
+              <div class="ml-dominant"><span>Maior sinal observado</span><b id="mlDominantSignal">—</b></div>
+              <div id="mlCandidateSummary" class="ml-candidate-summary">Candidato preditivo: aguardando auditoria.</div>
+              <div id="mlRelevantInsight" class="ml-relevant-insight">O modelo atualiza esta leitura quando encontra um sinal relevante.</div>
+              <div id="mlGovernanceNote" class="ml-governance-note">
+                Não influencia diagnóstico, recomendação, chamado ou ação.
+              </div>
+            </div>
+
+            <div class="ml-signals-block">
+              <small>Sinais normalizados do modelo <em>(MAD-z / pressão relativa)</em></small>
+              <div id="mlSignals" class="ml-signals"></div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+</div>
+
+  <div id="infraInventoryModal" class="infra-inventory-modal" aria-hidden="true">
+    <div class="infra-modal-backdrop" data-infra-modal-close="1"></div>
+    <section class="infra-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="infraModalTitle">
+      <header class="infra-modal-header">
+        <div>
+          <small>INVENTÁRIO DE INFRAESTRUTURA · AGORA</small>
+          <h2 id="infraModalTitle">—</h2>
+          <p id="infraModalSubtitle">—</p>
+        </div>
+        <button id="infraModalClose" class="infra-modal-close" type="button" aria-label="Fechar">×</button>
+      </header>
+      <div class="infra-modal-toolbar">
+        <span id="infraModalFreshness" class="infra-modal-chip neutral">—</span>
+        <span id="infraModalCount" class="infra-modal-chip">—</span>
+        <span class="infra-modal-note">Lista completa recebida pela API do TOI; não altera a aquisição.</span>
+      </div>
+      <div id="infraModalTable" class="infra-modal-table"></div>
+      <footer class="infra-modal-footer">
+        <span>Exibição completa não significa, por si só, cobertura histórica completa para ML.</span>
+      </footer>
+    </section>
+  </div>
+
+
+  <div id="customPeriodModal" class="analytics-modal" aria-hidden="true">
+    <div class="analytics-modal-backdrop" data-custom-close="1"></div>
+    <section class="analytics-modal-dialog compact" role="dialog" aria-modal="true" aria-labelledby="customPeriodTitle">
+      <header class="analytics-modal-header">
+        <div>
+          <small>ANÁLISE TEMPORAL · INTERVALO PERSONALIZADO</small>
+          <h2 id="customPeriodTitle">Selecionar período</h2>
+          <p>O diagnóstico operacional continua refletindo o estado LIVE atual; o gráfico e os indicadores históricos passam a usar o intervalo escolhido.</p>
+        </div>
+        <button id="customPeriodClose" class="analytics-modal-close" type="button" aria-label="Fechar">×</button>
+      </header>
+      <div class="custom-period-form">
+        <label><span>Início</span><input id="customStart" type="datetime-local"></label>
+        <label><span>Fim</span><input id="customEnd" type="datetime-local"></label>
+      </div>
+      <div id="customPeriodError" class="analytics-inline-error" hidden></div>
+      <footer class="analytics-modal-actions">
+        <span>Limite desta versão: 31 dias. Intervalos ≥7 dias usam Perfil Horário 00:00–23:59.</span>
+        <button id="customPeriodCancel" type="button" class="secondary">Cancelar</button>
+        <button id="customPeriodApply" type="button" class="primary">Aplicar período</button>
+      </footer>
+    </section>
+  </div>
+
+  <div id="managerialAnalyticsModal" class="analytics-modal" aria-hidden="true">
+    <div class="analytics-modal-backdrop" data-analytics-close="1"></div>
+    <section class="analytics-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="analyticsModalTitle">
+      <header class="analytics-modal-header">
+        <div>
+          <small id="analyticsModalEyebrow">ANÁLISE GERENCIAL</small>
+          <h2 id="analyticsModalTitle">—</h2>
+          <p id="analyticsModalSubtitle">—</p>
+        </div>
+        <button id="managerialAnalyticsClose" class="analytics-modal-close" type="button" aria-label="Fechar">×</button>
+      </header>
+      <div id="analyticsModalToolbar" class="analytics-modal-toolbar"></div>
+      <div id="analyticsModalBody" class="analytics-modal-body"></div>
+      <footer class="analytics-modal-footer">
+        <span>Camada analítica somente leitura. Nenhuma ação, alerta, diagnóstico ou aquisição é alterada.</span>
+      </footer>
+    </section>
+  </div>
+
+<dialog id="changePasswordDialog" class="account-dialog" aria-labelledby="changePasswordTitle">
+  <form id="changePasswordForm">
+    <h2 id="changePasswordTitle">Alterar senha</h2>
+    <p>Atualize a senha da sua conta no TOI.</p>
+    <label>Senha atual<input name="current_password" type="password" autocomplete="current-password" required></label>
+    <label>Nova senha (mínimo 10; maiúscula, minúscula, número e especial)<input name="new_password" type="password" autocomplete="new-password" minlength="10" required></label>
+    <label>Confirmar nova senha<input name="confirm_password" type="password" autocomplete="new-password" minlength="10" required></label>
+    <p id="changePasswordStatus" role="status"></p>
+    <footer><button id="changePasswordCancel" type="button">Cancelar</button><button type="submit">Salvar nova senha</button></footer>
+  </form>
+</dialog>
+<dialog id="mlReportDialog" class="ml-report-dialog" aria-labelledby="mlReportTitle">
+  <header><div><small>ML SHADOW · RELATÓRIO DE AVALIAÇÃO</small><h2 id="mlReportTitle">Avaliação semanal aguardando dados</h2></div><button id="mlReportClose" type="button" aria-label="Fechar relatório">Fechar ×</button></header>
+  <div class="ml-report-body">
+    <p class="ml-report-decision"><b>Estado:</b> coleta e execução em observação autorizadas. O modelo ainda não está homologado para previsão operacional, alertas ou ações. O score é um ranking de anomalia, não uma probabilidade calibrada.</p>
+    <h3>Última leitura relevante</h3><p id="mlReportLive">Aguardando uma inferência válida.</p>
+    <h3>Comparação retrospectiva</h3>
+    <p>Alvo experimental: uma fila abaixo de 20% em P34/P135 atingir esse limite nos 15 minutos seguintes. Dados em ordem temporal, com separação entre treino e teste. Os números abaixo são de precisão média (AP), em que valores maiores indicam melhor ordenação dos casos positivos.</p>
+    <table><thead><tr><th>Fila</th><th>Episódios aprox.</th><th>Regra atual</th><th>Shadow</th><th>Candidato</th></tr></thead><tbody id="mlReportRows"><tr><td colspan="5">Carregando auditoria…</td></tr></tbody></table>
+    <p>Os episódios são agrupamentos aproximados de janelas; não são incidentes confirmados. A suficiência das amostras é reavaliada a cada relatório.</p>
+    <h3>Próximos passos antes de homologar previsão</h3>
+    <ol><li>Rotular incidentes confirmados e separar episódios independentes.</li><li>Avaliar novos períodos e filas com cobertura suficiente.</li><li>Medir falsos positivos, antecedência do alerta, precisão, recall e calibração.</li><li>Acompanhar o candidato prospectivamente em Shadow antes de qualquer alerta.</li></ol>
+    <p class="ml-report-note">O candidato HistGradientBoostingClassifier foi estudado apenas retrospectivamente e não está ativo em produção.</p>
+    <p id="mlWeeklyAssessment">Próxima reanálise: aguardando relatório.</p>
+  </div>
+</dialog>
+<dialog id="radarResolved" class="radar-resolution" aria-labelledby="radarResolvedTitle">
+  <header><small id="radarResolvedEyebrow">RADAR OPERACIONAL · INSTÂNCIA —</small><h2 id="radarResolvedTitle">Congestionamento solucionado</h2></header>
+  <div id="radarResolvedBody"></div>
+  <p id="radarResolvedStatus" role="status"></p>
+  <footer><button id="radarResolvedAcknowledge" type="button">Ciente · voltar ao TOI</button></footer>
+</dialog>
+<dialog id="radarAlert" class="radar-dialog radar-alert" aria-labelledby="radarAlertTitle">
+  <header><small>RADAR OPERACIONAL · CIÊNCIA PENDENTE</small><h2 id="radarAlertTitle">Alerta operacional</h2></header>
+  <div id="radarAlertBody" class="radar-dialog-body"></div>
+  <p id="radarAckStatus" role="status"></p>
+  <footer><button id="radarAcknowledge" type="button">Ciente</button><button id="radarAnalyze" type="button" disabled>Ver Análise</button><button id="radarAlertSound" type="button" aria-pressed="false">Ativar som</button><button id="radarAlertNext" type="button" hidden>Continuar</button></footer>
+</dialog>
+<dialog id="radarExpanded" class="radar-dialog radar-expanded" aria-labelledby="radarExpandedTitle">
+  <header><h2 id="radarExpandedTitle">Radar Operacional</h2><button id="radarExpandedClose" type="button" aria-label="Fechar Radar ampliado">Fechar ×</button></header>
+  <div id="radarExpandedBody" class="radar-dialog-body"></div>
+</dialog>
+<link rel="stylesheet" href="/toi/radar.css?v=R1.2.9">
+<link rel="stylesheet" href="/toi/toi-extensions.css?v=20">
+<link rel="stylesheet" href="/toi/toi-ai.css?v=2">
+<dialog id="toiAiDialog" class="toi-ai-dialog" aria-labelledby="toiAiTitle">
+  <header><div><small>IA LOCAL · DADOS DO TOI</small><h2 id="toiAiTitle">Pergunte ao TOI</h2></div><button id="toiAiClose" type="button" aria-label="Fechar">×</button></header>
+  <div class="toi-ai-messages" id="toiAiMessages" role="log" aria-live="polite">
+    <p class="toi-ai-intro">Pergunte sobre a operação, seus indicadores e eventos. A resposta começa pela conclusão; a fonte e a cobertura ficam disponíveis para consulta.</p>
+  </div>
+  <form id="toiAiForm"><label for="toiAiQuestion">Sua pergunta</label><textarea id="toiAiQuestion" maxlength="1000" rows="3" placeholder="Ex.: Qual foi o maior pico de sessões do realm a-internet-corpx?" required></textarea><div class="toi-ai-actions"><small>Processamento e dados no servidor TOI.</small><button id="toiAiSend" type="submit">Perguntar</button></div></form>
+</dialog>
+<script src="/toi/runtime-prefix.js?v=2"></script>
+<script src="/toi/login.js?v=7"></script>
+<script src="/toi/radar.js?v=R1.2.13"></script>
+<script src="/toi/app.js?v=17"></script>
+<script src="/toi/sbc-card.js?v=9"></script>
+<script src="/toi/toi-extensions.js?v=8"></script>
+<script src="/toi/card-interactions.js?v=1"></script>
+<script src="/toi/ipbx-trace.js?v=11"></script>
+<script src="/toi/draggable-dialogs.js?v=1"></script>
+<script src="/toi/toi-ai.js?v=3"></script>
+<!-- TOI R1.2.4 H2-C2 SEM H1: chart zoom + explainability + capacity comparatives -->
+</body>
+</html>

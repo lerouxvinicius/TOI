@@ -1,0 +1,22 @@
+[Unit]
+Description=TOI read-only SBC lifetime session counters
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=toi
+Group=toi
+WorkingDirectory=/var/www/toi
+ExecStart=/var/www/toi/.venv/bin/python -u -m mgw.sbc_sessions
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/toi/dados
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

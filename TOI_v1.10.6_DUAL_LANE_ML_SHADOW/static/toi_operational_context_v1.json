@@ -1,0 +1,10 @@
+{
+  "version": "operational_context_v1",
+  "scope_note": "v1.10.6.3.2: janela operacional 08:00-21:00 + clarity hotfix; aquisição intacta.",
+  "default": {
+    "end_time": "21:00",
+    "start_time": "08:00",
+    "enabled": true
+  },
+  "queues": {}
+}

@@ -1,0 +1,18 @@
+[Unit]
+Description=TOI Agiroute instance 6 service health check
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=radius
+Group=toi
+WorkingDirectory=/var/www/toi
+ExecStart=/var/www/toi/.venv/bin/python /var/www/toi/agiroute_monitor.py
+TimeoutStartSec=40
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/var/www/toi/TOI_v1.10.6_DUAL_LANE_ML_SHADOW/static
+UMask=0027

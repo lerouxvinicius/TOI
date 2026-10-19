@@ -1,0 +1,113 @@
+{
+  "schema": "toi_dual_lane_deadline_policy_v3",
+  "version": "1.10.6",
+  "infra_defaults": {
+    "independent_worker": true,
+    "gateway_target_s": 10,
+    "gateway_max_age_s": 30,
+    "trunk_target_s": 15,
+    "trunk_phase_s": 7,
+    "max_age_s": 45,
+    "priority": 15,
+    "timeout_s": 8
+  },
+  "instancias": {
+    "4": {
+      "enabled": true,
+      "scheduler_mode": "dual_lane_edf_coalesced",
+      "queue_timeout_s": 12,
+      "queue_retries": 0,
+      "error_retry_s": 3,
+      "cooldown_s": 15,
+      "dual_lane": {
+        "enabled": true,
+        "description": "ALFA_COB_2 e ALFA_COB_3 ficam em lanes diferentes; Express acompanha a lane A e filas de controle a lane B.",
+        "lanes": {
+          "A": [
+            "0249700009",
+            "0252700002"
+          ],
+          "B": [
+            "0249700010",
+            "0249700007",
+            "0249700014"
+          ]
+        }
+      },
+      "queues": {
+        "0249700009": {
+          "nome": "ALFA_COB_2",
+          "target_s": 18,
+          "max_age_s": 40,
+          "priority": 100,
+          "phase_s": 0
+        },
+        "0249700010": {
+          "nome": "ALFA_COB_3",
+          "target_s": 18,
+          "max_age_s": 40,
+          "priority": 100,
+          "phase_s": 0
+        },
+        "0252700002": {
+          "nome": "ALFA_COB_EXPRESS_01",
+          "target_s": 24,
+          "max_age_s": 55,
+          "priority": 90,
+          "phase_s": 9
+        },
+        "0249700007": {
+          "nome": "ALFA_COB_1",
+          "target_s": 60,
+          "max_age_s": 90,
+          "priority": 40,
+          "phase_s": 20
+        },
+        "0249700014": {
+          "nome": "ALFA_COB_4",
+          "target_s": 60,
+          "max_age_s": 90,
+          "priority": 35,
+          "phase_s": 45
+        }
+      },
+      "infra": {
+        "independent_worker": true,
+        "gateway_target_s": 10,
+        "gateway_max_age_s": 30,
+        "trunk_target_s": 60,
+        "max_age_s": 135,
+        "priority": 15,
+        "timeout_s": 8,
+        "gateway_phase_s": 2,
+        "trunk_phase_s": 42,
+        "protect_fast_if_age_gt_s": 28,
+        "protect_codes": [
+          "0249700009",
+          "0249700010"
+        ]
+      },
+      "slow_path": {
+        "enabled": true,
+        "mode": "protected_serial_background",
+        "lastcalls_s": 300,
+        "dialer_s": 600,
+        "lastcalls_timeout_s": 25,
+        "dialer_timeout_s": 90,
+        "protect_fast_if_age_gt_s": 26,
+        "protect_codes": [
+          "0249700009",
+          "0249700010"
+        ],
+        "defer_step_s": 5,
+        "only_codes": [
+          "0249700009",
+          "0249700010",
+          "0252700002",
+          "0249700007",
+          "0249700014"
+        ]
+      }
+    }
+  }
+}

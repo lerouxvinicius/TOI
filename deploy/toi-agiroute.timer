@@ -1,0 +1,10 @@
+[Unit]
+Description=Check Agiroute instance 6 services every minute
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1min
+Unit=toi-agiroute.service
+
+[Install]
+WantedBy=timers.target

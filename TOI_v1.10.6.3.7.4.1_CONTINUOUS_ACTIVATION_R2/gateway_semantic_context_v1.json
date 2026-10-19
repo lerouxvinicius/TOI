@@ -1,0 +1,61 @@
+{
+  "version": "gateway_semantic_context_v1",
+  "mode": "SHADOW_HUMAN_GROUND_TRUTH",
+  "generated_at": "2026-09-03",
+  "governance": {
+    "changes_machine_status": false,
+    "generates_alerts": false,
+    "changes_diagnosis": false,
+    "changes_recommendation": false,
+    "changes_ticket_or_action": false,
+    "purpose": "Separar comportamento estatístico de papel operacional, lifecycle e cobertura observacional.",
+    "filters_shadow_functional_alert_projection": true,
+    "machine_alerts_preserved": true
+  },
+  "gateways": [
+    {
+      "instancia": "2",
+      "entity": "GWS792-DC1",
+      "operational_role": "RECEPTIVE_GATEWAY",
+      "lifecycle_state": "IN_SERVICE",
+      "traffic_expectation": "RECEPTIVE_LOW_OR_VARIABLE",
+      "coverage_level": "PARTIAL_QUEUE_SCOPE",
+      "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_2026-09-03",
+      "evidence_confidence": "HIGH",
+      "note": "Há tráfego no Gateway, mas o TOI possui somente uma fila cadastrada na Instância 2; a atividade de filas não representa demanda global da Instância. Fluxo receptivo pode ter baixa visibilidade no escopo atual."
+    },
+    {
+      "instancia": "4",
+      "entity": "GWS843-DC1",
+      "operational_role": "SBC_LAST_ROUTE",
+      "lifecycle_state": "IN_SERVICE_STANDBY",
+      "traffic_expectation": "SPORADIC_LAST_ROUTE",
+      "coverage_level": "INFRA_PLUS_AVAILABLE_LASTCALLS",
+      "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_2026-09-03",
+      "evidence_confidence": "HIGH",
+      "note": "Funciona como SBC e fica por último na rota. Ocupação zero ou baixa pode ser comportamento esperado; quando acionado pode apresentar ocupação relevante."
+    },
+    {
+      "instancia": "4",
+      "entity": "GWS955-DC1",
+      "operational_role": "STANDARD_GATEWAY_ROLE_UNSPECIFIED",
+      "lifecycle_state": "FAULT_CONFIRMED",
+      "traffic_expectation": "TRAFFIC_BLOCKED_BY_CONFIRMED_FAULT",
+      "coverage_level": "INFRA_PLUS_AVAILABLE_LASTCALLS",
+      "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_2026-09-03",
+      "evidence_confidence": "HIGH",
+      "note": "Gateway confirmado como travado; não recebe chamadas. A confirmação humana é Ground Truth para validação sem converter automaticamente a inferência Shadow em ação."
+    },
+    {
+      "instancia": "5",
+      "entity": "GWS834-DC1",
+      "operational_role": "FUTURE_SBC",
+      "lifecycle_state": "VENDOR_CONFIGURATION",
+      "traffic_expectation": "NO_TRAFFIC_PLANNED",
+      "coverage_level": "INFRA_PLUS_AVAILABLE_LASTCALLS",
+      "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_2026-09-03",
+      "evidence_confidence": "HIGH",
+      "note": "Gateway parado e com o fornecedor ORBE para configuração futura como SBC. Ausência de tráfego é planejada e não deve ser tratada como falha funcional automática."
+    }
+  ]
+}

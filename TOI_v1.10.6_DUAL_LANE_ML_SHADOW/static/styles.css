@@ -1,0 +1,1853 @@
+:root{
+  --stage-w:1536px; --stage-h:1024px;
+  --bg:#04131e; --side:#061725; --panel:#081d2c; --panel2:#092333;
+  --border:#19384b; --border2:#102e40; --text:#e4edf2; --muted:#879aa8;
+  --red:#ff3d45; --orange:#ff9818; --yellow:#ffb316; --blue:#199fe3;
+  --teal:#25a9bf; --green:#65d27a; --lime:#74d21d; --purple:#8a54e5;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#020a10;font-family:"Segoe UI",Tahoma,Arial,sans-serif;color:var(--text)}
+#fitWrap{position:absolute;left:0;top:0;overflow:hidden;background:#020a10}
+#goldenStage{position:absolute;left:0;top:0;width:1536px;height:1024px;transform-origin:0 0;background:linear-gradient(180deg,#03121c,#051823);font-size:12px}
+
+/* Header */
+.global-header{position:absolute;left:0;top:0;width:1536px;height:55px;background:linear-gradient(180deg,#03111b,#051622);border-bottom:1px solid #173246}
+.brand{position:absolute;left:18px;top:10px;display:flex;gap:8px;align-items:flex-start}
+.brand b{font-size:31px;line-height:1;color:#1bb5dd;font-weight:700;letter-spacing:-1px}
+.brand span{font-size:13px;line-height:1.14;color:#f0f5f7}
+.header-user{position:absolute;right:19px;top:8px;height:42px;display:flex;align-items:center;gap:11px}
+.header-environment{display:flex;align-items:center;gap:8px;color:#d8f5df;font-size:12px;white-space:nowrap}
+.header-environment i{width:12px;height:12px;border-radius:50%;background:#4eff78;box-shadow:0 0 7px #4eff78,0 0 15px #30d45a;display:inline-block}
+.bell{position:relative;color:#8da1ae;font-size:18px}.bell i{position:absolute;right:-5px;top:-7px;background:#e33b3e;color:#fff;font-size:8px;border-radius:10px;padding:1px 4px;font-style:normal}
+.help{width:21px;height:21px;border-radius:50%;background:#354654;color:#c5d0d6;display:flex;align-items:center;justify-content:center;font-weight:600}
+.avatar{width:28px;height:28px;border-radius:50%;background:#194d78;display:flex;align-items:center;justify-content:center;color:#e6f1f7;font-size:10px}
+.user-copy{display:flex;flex-direction:column;min-width:70px}.user-copy strong{font-size:12px;font-weight:500}.user-copy span{font-size:9px;color:#9aabb6}
+
+/* Sidebar */
+.sidebar{position:absolute;left:0;top:55px;width:145px;height:969px;background:linear-gradient(180deg,#061725,#071724);border-right:1px solid #173247;padding:28px 8px 8px}
+.nav-section{font-size:8px;color:#6b8291;margin:0 4px 6px;padding-top:12px}
+.nav{height:27px;display:flex;align-items:center;gap:7px;padding:0 7px;border-radius:3px;color:#abbac4;font-size:10px}
+.nav.active{background:#102b3e;color:#fff}.nav.muted{color:#728a99}.about{position:absolute;bottom:65px;left:9px;color:#8197a6;font-size:9px}.version{position:absolute;bottom:16px;left:10px;width:125px;height:27px;border:1px solid #173246;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#768d9d;font-size:9px}
+
+/* Main fixed geometry derived from golden image */
+.main{position:absolute;left:145px;top:55px;width:1391px;height:969px;padding:0}
+.filters{position:absolute;left:12px;top:0;width:1369px;height:52px;display:flex;align-items:flex-start;padding-top:5px;gap:7px}
+.filters label,.period-block{font-size:9px;color:#9babb6}.filters label>span,.period-block>span{display:block;margin:0 0 3px 5px}
+.filters select{height:32px;background:#081b29;border:1px solid #18384d;border-radius:4px;color:#e4edf1;padding:0 27px 0 9px;font-size:10px;min-width:150px}
+.queue-field select{min-width:226px}.period-block{display:flex;align-items:flex-end;gap:9px}.period-block>span{margin-bottom:10px;font-size:10px;color:#e2eaf0}
+.periods{display:flex;gap:4px}.periods button{height:31px;padding:0 10px;background:#091c2b;border:1px solid #18384d;border-radius:4px;color:#c1ccd3;font-size:9px}
+.periods button.active{background:#0b5667;border-color:#197184;color:#fff}.periods .custom{opacity:.75}
+.update{margin-left:auto;text-align:right;color:#8a9da9;font-size:8px;line-height:1.8;padding-top:7px}.toggle{display:inline-block;width:25px;height:13px;background:#286069;border-radius:8px;vertical-align:middle;position:relative}.toggle:after{content:"";position:absolute;width:9px;height:9px;right:2px;top:2px;background:#58d5c8;border-radius:50%}
+
+/* Generic panel */
+.panel{position:relative;background:linear-gradient(180deg,#081e2c,#071b29);border:1px solid var(--border);border-radius:5px;overflow:hidden}
+.panel h3{height:29px;margin:0;padding:8px 10px 0;font-size:10px;font-weight:500;color:#e8f0f4;border-bottom:1px solid #102d3f}
+.panel h3 em{font-style:normal;color:#97a7b1;font-weight:400}
+
+/* Top row exact */
+.top-row{position:absolute;left:12px;top:60px;width:1369px;height:170px;display:grid;grid-template-columns:874px 484px;gap:10px}
+.health-body{height:140px;display:grid;grid-template-columns:165px 1fr 335px;padding:10px 12px}
+.score-col{display:flex;flex-direction:column;align-items:center;border-right:1px solid #17364a}
+.score-ring{width:94px;height:94px;border-radius:50%;border:12px solid #354951;border-right-color:var(--yellow);border-bottom-color:var(--yellow);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-ring strong{font-size:27px;font-weight:400}.score-ring small{font-size:9px;color:#93a4ae}.score-label{margin-top:4px;color:#f1b927;font-size:10px;font-weight:600}.trend{margin-top:3px;color:#8297a5;font-size:9px}
+.diagnostic{padding:7px 14px}.diagnostic small,.factors small{font-size:9px;color:#91a3ae}.diagnostic h2{margin:5px 0 4px;font-size:13px;color:#f0bd31;font-weight:600}.diagnostic p{margin:0;color:#b6c3cb;line-height:1.45;font-size:10px}.confidence{position:absolute;left:182px;bottom:12px;font-size:10px}.confidence b{color:#78d67d}.confidence span{display:inline-block;width:280px;height:6px;background:#173348;border-radius:7px;margin-left:8px;vertical-align:middle}.confidence i{display:block;height:100%;background:#28bd61}
+.factors{border-left:1px solid #17364a;padding:7px 0 0 14px}.factor{font-size:10px;padding:2px 0}.factor b{display:inline-block;width:31px}.neg{color:#ff4c53}.pos{color:#65d47a}
+.incident-body{height:140px;display:grid;grid-template-columns:1fr 145px}.incident-left{padding:16px 13px;font-size:10px;color:#8b9eaa;line-height:2}.incident-state{font-size:15px;color:var(--red);margin-bottom:8px}.incident-left b{color:#cbd7de;font-weight:400}.incident-right{border-left:1px solid #17364a;padding:8px 11px}.incident-right div{margin-bottom:7px}.incident-right small{display:block;font-size:9px;color:#879aa7}.incident-right strong{font-size:18px;color:var(--red);font-weight:500}
+
+/* KPI row */
+.kpi-row{position:absolute;left:12px;top:240px;width:1369px;height:104px;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:7px}
+.kpi{padding:9px 10px 5px}.kpi .label{font-size:10px;color:#d6e0e5}.kpi .value{font-size:19px;font-weight:500;margin:5px 0 2px}.kpi .sub{font-size:9px;color:#8498a6}.kpi canvas{position:absolute;left:7px;bottom:6px;width:calc(100% - 14px);height:26px}
+.kpi.red .value{color:var(--red)}.kpi.orange .value{color:#ffb315}.kpi.blue .value{color:var(--blue)}.kpi.teal .value{color:var(--teal)}.kpi.green .value{color:#67d576}.kpi.purple .value{color:#9b73ff}
+
+/* Evolution */
+.middle-row{position:absolute;left:12px;top:354px;width:1369px;height:267px;display:grid;grid-template-columns:941px 418px;gap:10px}
+.evolution-panel{height:267px}.legend{height:29px;display:flex;align-items:center;gap:22px;padding:0 10px;font-size:9px;color:#aab8c1}.legend span{color:#aebcc5}.legend span::first-letter{color:var(--c)}
+.chart-box{position:absolute;left:0;right:0;top:58px;bottom:0}.chart-box canvas{width:100%;height:100%}
+.timeline-panel{height:267px;display:grid;grid-template-rows:29px 1fr 28px}.timeline{overflow:hidden}.timeline-item{height:25px;border-bottom:1px solid #102d3e;display:grid;grid-template-columns:42px 19px 1fr auto;align-items:center;gap:7px;padding:0 10px;font-size:10px}.timeline-time{color:#889daa}.event-dot{width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff}.event-dot.purple{background:#7653c7}.event-dot.orange{background:#d98318}.event-dot.red{background:#d33b41}.event-dot.green{background:#4fa45d}.timeline-value{color:#95a7b2}
+.panel-link{height:28px;border-top:1px solid #102d3e;display:flex;align-items:center;justify-content:center;color:#a7b6bf;font-size:9px}
+
+/* Detail row */
+.detail-row{position:absolute;left:12px;top:631px;width:1369px;height:186px;display:grid;grid-template-columns:257px 264px 262px 337px 209px;gap:10px}
+.detail{height:186px;display:grid;grid-template-rows:29px 1fr 28px}
+.agents-body{display:grid;grid-template-columns:105px 1fr;padding:5px 7px}.agent-total-caption{font-size:8px;color:#92a4af;margin:0 0 4px}.agent-donut{width:84px;height:84px;border:13px solid #566468;border-right-color:#d89018;border-bottom-color:#d89018;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}.agent-donut strong{font-size:21px;font-weight:400}.agent-donut small{font-size:9px;color:#a5b3bc}.agent-list{padding-top:4px}.agent-row{display:grid;grid-template-columns:10px 1fr 25px 48px;gap:5px;height:20px;align-items:center;font-size:9px}.sw{width:8px;height:8px}.pct{color:#91a3ae}
+.table-head{height:22px;padding:0 8px;display:grid;align-items:center;color:#8296a4;font-size:8px;border-bottom:1px solid #102d3d}.table-head.trunk{grid-template-columns:1.3fr .55fr .65fr .32fr}.table-head.gateway{grid-template-columns:1.35fr .55fr .55fr .35fr}
+.table-body{padding:2px 8px}.data-row{height:24px;border-bottom:1px solid #102d3c;display:grid;align-items:center;font-size:9px}.data-row.trunk{grid-template-columns:1.3fr .55fr .65fr .32fr}.data-row.gateway{grid-template-columns:1.35fr .55fr .55fr .35fr}
+.occ{display:inline-block;min-width:42px;padding:1px 4px;border-radius:2px;text-align:center}.occ.high{background:#a93638;color:#ffd5d7}.occ.mid{background:#9d5c26;color:#ffe2c0}.occ.ok{color:#68d47b}.dot-status{width:8px;height:8px;border-radius:50%;background:#f83e44;display:inline-block}.status-ok{padding:1px 4px;border:1px solid #387f49;border-radius:2px;color:#8fe99e}.lat{color:#a7b5be}
+.dialer{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:6px 9px}.dial-col .metric{height:20px;display:grid;grid-template-columns:1fr auto;align-items:center;font-size:9px}.metric span{color:#adbbc4}.metric b{font-weight:500}
+.stuck-card{grid-template-rows:29px 1fr 22px 28px}.stuck-main{display:grid;grid-template-columns:103px 1fr;align-items:center;padding:4px}.stuck-donut{width:77px;height:77px;border-radius:50%;border:12px solid #596568;border-top-color:#64cc6f;border-right-color:#64cc6f;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:auto}.stuck-donut strong{font-size:20px;font-weight:400}.stuck-donut small{font-size:9px}.stuck-legend{font-size:9px;line-height:1.8}.leg{display:grid;grid-template-columns:9px 1fr auto;gap:5px;align-items:center}.sq{width:8px;height:8px}.stuck-duration{text-align:center;font-size:9px;color:#91a4b0}
+
+/* Footer */
+.footer-row{position:absolute;left:12px;top:827px;width:1369px;height:132px;display:grid;grid-template-columns:856px 243px 250px;gap:10px}
+.recommendations,.capacity,.recent{height:132px}.recommendations{display:grid;grid-template-rows:29px 1fr}.tag{display:inline-block;margin-left:7px;padding:1px 5px;border:1px solid #a87b08;border-radius:3px;color:#efb922;font-size:8px}
+.rec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:6px 7px}.rec{position:relative;border:1px solid #15384c;border-radius:4px;padding:7px 8px;font-size:9px}.rec-num{display:inline-flex;width:17px;height:17px;border-radius:50%;background:#1488c7;color:#fff;align-items:center;justify-content:center;margin-right:5px}.rec-title{font-size:10px;color:#f2bd31;font-weight:600}.rec p{margin:4px 0;color:#a8b6bf;line-height:1.3}.rec .impact{color:#63c978}.priority{position:absolute;right:7px;bottom:6px;padding:2px 5px;border:1px solid #704c18;border-radius:2px;color:#eaaa2b}.priority.Alta{border-color:#7f3339;color:#ff555d}.priority.Média{border-color:#8a6514;color:#f0b229}.rec.placeholder{opacity:.45;border-style:dashed}
+.capacity,.recent{display:grid;grid-template-rows:29px 1fr 28px}.capacity-body,.recent-body{padding:6px 9px;font-size:9px}.risk-caption{color:#8498a6}.risk-value{font-size:20px;color:var(--red);margin:2px 0 5px}.cap-row{height:20px;display:grid;grid-template-columns:1fr auto;align-items:center}.cap-row span{color:#9caeb9}.cap-row b{font-weight:500}.recent-row{height:21px;display:grid;grid-template-columns:82px 54px 1fr;align-items:center;font-size:9px}.chip{padding:1px 4px;border-radius:2px;text-align:center}.chip.active{background:#6c292e;color:#ffb1b5}.chip.resolved{background:#296746;color:#b5eac5}
+
+
+/* ==========================================================
+   TOI v1.6 — RESPONSIVO
+   - Preenche toda a largura disponível.
+   - Não escala o dashboard como imagem.
+   - Em telas estreitas, preserva min-width e permite scroll.
+   - Corrige sobreposição em tabelas e Análise de Capacidade.
+   ========================================================== */
+
+html,body{
+  min-width:1280px;
+  min-height:760px;
+  overflow:auto !important;
+  background:#03111a !important;
+}
+
+/* Remove o canvas centralizado da v1.5 */
+#fitWrap{
+  position:static !important;
+  left:auto !important;
+  top:auto !important;
+  width:100% !important;
+  height:auto !important;
+  overflow:visible !important;
+  background:#03111a !important;
+}
+#goldenStage{
+  position:relative !important;
+  left:auto !important;
+  top:auto !important;
+  width:100% !important;
+  min-width:1280px !important;
+  height:1024px !important;
+  transform:none !important;
+  transform-origin:initial !important;
+  margin:0 !important;
+}
+
+/* Header ocupa toda a tela */
+.global-header{
+  width:100% !important;
+  min-width:1280px;
+}
+.header-user{
+  right:18px !important;
+}
+.header-user .help{margin-right:1px}
+
+/* A área principal cresce horizontalmente com a viewport */
+.main{
+  width:calc(100% - 145px) !important;
+  min-width:1135px !important;
+}
+
+/* Todas as faixas usam a largura disponível em vez de pixels fixos */
+.filters,
+.top-row,
+.kpi-row,
+.middle-row,
+.detail-row,
+.footer-row{
+  width:calc(100% - 24px) !important;
+}
+
+/* Proporções do Golden Reference, agora responsivas */
+.top-row{
+  grid-template-columns:minmax(0,1.82fr) minmax(370px,.99fr) !important;
+}
+.middle-row{
+  grid-template-columns:minmax(0,2.08fr) minmax(330px,.92fr) !important;
+}
+.detail-row{
+  grid-template-columns:
+    minmax(205px,1.02fr)
+    minmax(220px,1.08fr)
+    minmax(220px,1.08fr)
+    minmax(270px,1.30fr)
+    minmax(180px,.88fr) !important;
+  height:180px !important;
+}
+.footer-row{
+  top:821px !important;
+  height:145px !important;
+  grid-template-columns:minmax(0,2.42fr) minmax(220px,.78fr) minmax(225px,.84fr) !important;
+}
+
+/* Faixa operacional: cada filho tem sua própria linha.
+   Evita dados de troncos/gateways colidindo com os links inferiores. */
+.detail{
+  height:180px !important;
+}
+.detail.table-card{
+  display:grid !important;
+  grid-template-rows:29px 22px minmax(0,1fr) 28px !important;
+}
+.detail:not(.table-card):not(.stuck-card){
+  grid-template-rows:29px minmax(0,1fr) 28px !important;
+}
+.stuck-card{
+  grid-template-rows:29px minmax(0,1fr) 22px 28px !important;
+}
+.table-body{
+  min-height:0;
+  overflow:hidden;
+  padding-top:1px !important;
+}
+.data-row{
+  height:20px !important;
+  min-height:20px !important;
+}
+.table-head{
+  height:22px !important;
+}
+.panel-link{
+  position:relative;
+  z-index:2;
+  background:#071b29;
+}
+
+/* Capacidade: conteúdo compacto, porém integral. */
+.capacity,
+.recent,
+.recommendations{
+  height:145px !important;
+}
+.capacity,
+.recent{
+  grid-template-rows:29px minmax(0,1fr) 28px !important;
+}
+.capacity-body{
+  padding:5px 9px 2px !important;
+  overflow:hidden;
+}
+.risk-value{
+  font-size:18px !important;
+  margin:1px 0 3px !important;
+}
+.cap-row{
+  height:15px !important;
+  line-height:15px !important;
+  font-size:8.5px !important;
+}
+
+/* Recomendações passam a usar toda a altura sem sobreposição. */
+.rec-grid{
+  min-height:0;
+  padding:5px 7px !important;
+}
+.rec{
+  min-height:0;
+  overflow:hidden;
+}
+.rec p{
+  margin:3px 0 !important;
+  line-height:1.22 !important;
+}
+.priority{
+  bottom:5px !important;
+}
+
+/* Topo simplificado: atualização é informativa, não um controle. */
+.update{
+  padding-top:9px !important;
+  min-width:210px;
+  font-size:8.5px !important;
+  line-height:1.55 !important;
+}
+.refresh-copy{
+  color:#6f8797;
+}
+.toggle,.bell{
+  display:none !important;
+}
+
+/* Melhor distribuição quando há espaço adicional. */
+@media (min-width:1800px){
+  .filters select{font-size:10.5px}
+  .periods button{padding-left:12px;padding-right:12px}
+  .health-body{grid-template-columns:175px 1fr 350px}
+  .kpi .value{font-size:20px}
+  .detail-row{
+    grid-template-columns:1.05fr 1.12fr 1.12fr 1.31fr .92fr !important;
+  }
+}
+
+/* Em telas menores não esprememos os cards até haver sobreposição:
+   o usuário passa a ter scroll horizontal, como solicitado. */
+@media (max-width:1399px){
+  #goldenStage{min-width:1366px !important}
+  .global-header{min-width:1366px !important}
+  .main{min-width:1221px !important}
+}
+
+.risk-baixo{color:#65d27a !important}
+.risk-médio,.risk-medio{color:#ffb316 !important}
+.risk-alto{color:#ff3d45 !important}
+
+
+/* ==========================================================
+   TOI v1.7 — AJUSTE FINO DE FIDELIDADE
+   ========================================================== */
+
+/* Cabeçalho: Instância, Fila e Período alinhados na mesma grade. */
+.filters{
+  display:grid !important;
+  grid-template-columns:minmax(135px,150px) minmax(285px,360px) minmax(650px,1fr) auto !important;
+  align-items:end !important;
+  column-gap:8px !important;
+  padding-top:4px !important;
+}
+.filters label{
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:flex-end !important;
+  height:44px !important;
+}
+.filters label>span,
+.period-block>span{
+  height:13px !important;
+  line-height:13px !important;
+  margin:0 0 3px 4px !important;
+  font-size:9px !important;
+}
+.filters select{
+  width:100% !important;
+  min-width:0 !important;
+  height:31px !important;
+}
+.period-block{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:stretch !important;
+  justify-content:flex-end !important;
+  height:44px !important;
+  gap:0 !important;
+  min-width:0 !important;
+}
+.periods{
+  height:31px !important;
+  display:flex !important;
+  align-items:stretch !important;
+  gap:4px !important;
+  min-width:0 !important;
+}
+.periods button{
+  height:31px !important;
+  white-space:nowrap !important;
+}
+.update{
+  align-self:end !important;
+  min-width:225px !important;
+  padding:0 0 8px 8px !important;
+  font-size:8.5px !important;
+  line-height:1.2 !important;
+  white-space:nowrap !important;
+  color:#8499a8 !important;
+}
+
+/* Futura Central de Alertas: ícone visual com badge 12. */
+.notification-placeholder{
+  position:relative;
+  width:24px;
+  height:27px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#879ba8;
+}
+.notification-placeholder svg{
+  width:17px;
+  height:17px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.notification-placeholder span{
+  position:absolute;
+  top:-2px;
+  right:-4px;
+  min-width:15px;
+  height:15px;
+  padding:0 3px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:9px;
+  background:#e23b3f;
+  color:#fff;
+  font-size:8px;
+  font-weight:700;
+  line-height:15px;
+}
+
+/* Sidebar: coluna fixa para ícone + texto, eliminando desalinhamentos. */
+.nav{
+  display:grid !important;
+  grid-template-columns:17px minmax(0,1fr) !important;
+  column-gap:5px !important;
+  align-items:center !important;
+  padding:0 7px !important;
+  text-align:left !important;
+}
+.nav-ico{
+  width:17px;
+  height:17px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 !important;
+  color:#7f98a8;
+  font-style:normal;
+  font-size:10px;
+  line-height:1;
+}
+.nav.active .nav-ico{color:#26b8df}
+.nav span{
+  display:block;
+  margin:0 !important;
+  padding:0 !important;
+  line-height:1.15 !important;
+}
+.nav-section{
+  padding-left:6px !important;
+  text-align:left !important;
+}
+
+/* Distribuição dos agentes: seis estados visíveis, inclusive Discando. */
+.agents-card .agents-body{
+  grid-template-columns:104px minmax(0,1fr) !important;
+  padding:3px 7px 1px !important;
+  min-height:0 !important;
+  overflow:hidden !important;
+}
+.agents-card .agent-list{
+  padding-top:0 !important;
+  min-height:0 !important;
+  overflow:hidden !important;
+}
+.agents-card .agent-row{
+  height:17px !important;
+  min-height:17px !important;
+  line-height:17px !important;
+}
+.agents-card .agent-total-caption{
+  margin-bottom:2px !important;
+}
+.agents-card .agent-donut{
+  width:78px !important;
+  height:78px !important;
+  border-width:11px !important;
+}
+
+/* Análise de Capacidade: layout executivo igual ao conceito aprovado. */
+.capacity-body{
+  padding:7px 9px 4px !important;
+}
+.capacity-grid{
+  height:100%;
+  display:grid;
+  grid-template-columns:82px minmax(0,1fr);
+  column-gap:11px;
+}
+.capacity-risk{
+  border-right:1px solid #17364a;
+  padding-right:9px;
+}
+.capacity-risk .risk-caption{
+  font-size:8.5px;
+  color:#8599a7;
+}
+.capacity-risk .risk-value{
+  font-size:20px !important;
+  line-height:22px;
+  margin:2px 0 8px !important;
+  font-weight:500;
+}
+.capacity-headroom-label{
+  color:#879aa8;
+  font-size:8.5px;
+  line-height:1.15;
+}
+.capacity-headroom{
+  margin-top:2px;
+  color:#e4edf2;
+  font-size:13px;
+  font-weight:600;
+}
+.capacity-metrics{
+  padding-top:1px;
+}
+.capacity-metric{
+  height:20px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:6px;
+  border-bottom:1px solid rgba(16,45,62,.45);
+  font-size:8.7px;
+}
+.capacity-metric span{
+  color:#9cafba;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.capacity-metric b{
+  color:#e4edf2;
+  font-weight:500;
+  white-space:nowrap;
+}
+
+/* Evolução Temporal: renderização limpa/anti-aliased. */
+.chart-box canvas{image-rendering:auto}
+
+
+/* ==========================================================
+   TOI v1.8 — POLIMENTO FINAL DO GOLDEN REFERENCE
+   ========================================================== */
+
+/* Sidebar: proíbe quebra automática dos itens. */
+.sidebar .nav{
+  grid-template-columns:14px minmax(0,1fr) !important;
+  column-gap:4px !important;
+  padding-left:5px !important;
+  padding-right:4px !important;
+  font-size:8.8px !important;
+}
+.sidebar .nav-ico{
+  width:14px !important;
+  height:16px !important;
+  font-size:9px !important;
+}
+.sidebar .nav span{
+  white-space:nowrap !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+  letter-spacing:-0.03px;
+}
+.sidebar .nav-section{
+  white-space:nowrap !important;
+}
+
+/* Agentes: círculo centralizado e ligeiramente mais baixo. */
+.agents-card .agents-body{
+  align-items:start !important;
+}
+.agents-card .agents-body > div:first-child{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  padding-top:4px !important;
+}
+.agents-card .agent-total-caption{
+  width:100%;
+  text-align:left;
+  margin:0 0 4px 0 !important;
+}
+.agents-card .agent-donut{
+  margin:7px auto 0 !important;
+}
+
+/* Capacidade: reprodução da distribuição do Golden Reference.
+   Coluna esquerda = risco/headroom; coluna direita = 3 indicadores. */
+.capacity-body{
+  padding:6px 9px 4px !important;
+  overflow:hidden !important;
+}
+.capacity-grid{
+  width:100%;
+  height:100%;
+  display:grid !important;
+  grid-template-columns:78px minmax(0,1fr) !important;
+  column-gap:10px !important;
+}
+.capacity-risk{
+  min-width:0;
+  padding-right:8px !important;
+  border-right:1px solid #17364a;
+}
+.capacity-risk .risk-caption{
+  margin-top:0;
+  font-size:8px !important;
+  line-height:11px;
+}
+.capacity-risk .risk-value{
+  margin:1px 0 9px !important;
+  font-size:19px !important;
+  line-height:20px !important;
+}
+.capacity-headroom-label{
+  font-size:8px !important;
+  line-height:10px !important;
+}
+.capacity-headroom{
+  margin-top:2px !important;
+  font-size:11px !important;
+  line-height:13px !important;
+}
+.capacity-metrics{
+  min-width:0;
+  padding-top:0 !important;
+}
+.capacity-metric{
+  height:22px !important;
+  line-height:22px !important;
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) auto !important;
+  gap:5px !important;
+  border-bottom:none !important;
+  font-size:8.3px !important;
+}
+.capacity-metric span{
+  color:#9cafba !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+.capacity-metric b{
+  color:#e5edf2 !important;
+  white-space:nowrap !important;
+  font-weight:500 !important;
+}
+.capacity .panel-link{
+  height:28px !important;
+}
+
+
+/* ==========================================================
+   TOI v1.9 — PERÍODO REAL
+   ========================================================== */
+.coverage-label{
+  margin-left:auto;
+  color:#7f96a5 !important;
+  font-size:8px;
+  white-space:nowrap;
+}
+.coverage-label.partial{
+  color:#e8ae35 !important;
+}
+
+/* TOI v1.10 — integridade LIVE */
+#updatedAt.fresh-live{color:#65d27a !important;font-weight:600}
+#updatedAt.fresh-stale{color:#ff5a61 !important;font-weight:700}
+
+#updatedAt.fresh-warn{color:#ffbf3f !important;font-weight:650}
+
+.factor.quality{color:#ffbf3f}.factor.quality b{color:#ffbf3f}
+.source-unavailable{padding:18px 12px;color:#ffbf3f;font-size:10px;line-height:1.5;text-align:center}
+.dialer-paused{padding-top:24px}
+#updatedAt.fresh-warn{color:#ffbf3f!important}
+
+
+/* TOI v1.10.6 — P34/P135 + status operacional de grupos de troncos */
+.dot-status{display:inline-block;width:9px;height:9px;border-radius:50%;background:#6d7d87}
+.dot-status.up{background:#4fd56d;box-shadow:0 0 5px rgba(79,213,109,.35)}
+.dot-status.down{background:#ff4148;box-shadow:0 0 5px rgba(255,65,72,.30)}
+.dot-status.unknown{background:#6d7d87}
+.kpi.green .value{color:#65d27a !important}
+.kpi.orange .value{color:#ffb316 !important}
+.kpi.red .value{color:#ff3d45 !important}
+.kpi.neutral .value{color:#8da0ad !important}
+.kpi-row{grid-template-columns:repeat(10,minmax(105px,1fr)) !important}
+.kpi .label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ==========================================================
+   TOI v1.10.6.1 — ML SHADOW OBSERVABILITY
+   - Não altera aquisição, diagnóstico determinístico ou recomendação.
+   - Expõe a inferência Shadow com governança de freshness/Quality Gate.
+   - Mantém o Golden Reference e acrescenta uma faixa de inteligência.
+   ========================================================== */
+
+#goldenStage{height:1150px !important}
+.sidebar{height:1095px !important}
+.main{height:1095px !important}
+
+.ml-header-status{
+  margin-top:2px;
+  font-size:8.2px;
+  font-weight:600;
+  letter-spacing:.02em;
+  color:#8da0ad;
+}
+.ml-header-status.baixo{color:#65d27a}
+.ml-header-status.medio{color:#ffb316}
+.ml-header-status.alto{color:#ff3d45}
+.ml-header-status.blocked{color:#ffbf3f}
+.ml-header-status.neutral{color:#8da0ad}
+
+.ml-row{
+  position:absolute;
+  left:12px;
+  top:976px;
+  width:calc(100% - 24px) !important;
+  height:154px;
+}
+.ml-shadow-panel{
+  width:100%;
+  height:154px;
+  display:grid;
+  grid-template-rows:29px minmax(0,1fr);
+  border-color:#28445e;
+  background:linear-gradient(180deg,#0a2030,#071a28);
+  box-shadow:inset 0 1px 0 rgba(119,83,199,.08);
+}
+.ml-shadow-panel h3{
+  display:flex;
+  align-items:center;
+  padding-top:0;
+  gap:7px;
+  letter-spacing:.02em;
+}
+.ml-mode-badge,
+.ml-gate-badge{
+  display:inline-flex;
+  align-items:center;
+  height:17px;
+  padding:0 6px;
+  border-radius:3px;
+  font-size:7.5px;
+  font-weight:700;
+  letter-spacing:.04em;
+}
+.ml-mode-badge{
+  border:1px solid #5c4b86;
+  color:#bca5ff;
+  background:rgba(112,79,190,.10);
+}
+.ml-gate-badge{margin-left:auto;margin-right:8px}
+.ml-gate-badge.ok{border:1px solid #377b4b;color:#82df94;background:rgba(63,147,82,.08)}
+.ml-gate-badge.blocked{border:1px solid #8f6b22;color:#ffbf3f;background:rgba(190,137,29,.09)}
+.ml-gate-badge.neutral{border:1px solid #415463;color:#8da0ad;background:rgba(88,110,124,.08)}
+
+.ml-shadow-body{
+  min-height:0;
+  display:grid;
+  grid-template-columns:170px 255px minmax(280px,1fr) 430px;
+  gap:0;
+  padding:8px 10px 9px;
+}
+.ml-risk-block,
+.ml-meta-block,
+.ml-explain-block,
+.ml-signals-block{min-width:0}
+.ml-risk-block{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  border-right:1px solid #17364a;
+  padding-right:10px;
+}
+.ml-risk-ring{
+  --ml-risk:0;
+  --ml-tone:#8da0ad;
+  position:relative;
+  width:78px;
+  height:78px;
+  border-radius:50%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:conic-gradient(var(--ml-tone) calc(var(--ml-risk) * 1%),#223744 0);
+}
+.ml-risk-ring::after{
+  content:"";
+  position:absolute;
+  inset:9px;
+  border-radius:50%;
+  background:#081d2c;
+  border:1px solid rgba(255,255,255,.025);
+}
+.ml-risk-ring strong,
+.ml-risk-ring small{position:relative;z-index:1}
+.ml-risk-ring strong{font-size:22px;font-weight:500;line-height:22px;color:#e7eef2}
+.ml-risk-ring small{font-size:8px;color:#8296a4;margin-top:2px}
+.ml-risk-ring.suppressed{filter:saturate(.55);opacity:.72}
+.ml-risk-class{margin-top:4px;font-size:9px;font-weight:700;letter-spacing:.05em}
+.ml-risk-class.baixo{color:#65d27a}.ml-risk-class.medio{color:#ffb316}.ml-risk-class.alto{color:#ff3d45}
+.ml-risk-class.suppressed{color:#ffbf3f}.ml-risk-class.neutral{color:#8da0ad}
+.ml-risk-caption{margin-top:2px;font-size:7.3px;color:#718795;text-align:center;white-space:nowrap}
+
+.ml-meta-block{
+  padding:2px 14px;
+  border-right:1px solid #17364a;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.ml-meta-row{
+  min-height:19px;
+  display:grid;
+  grid-template-columns:92px minmax(0,1fr);
+  align-items:center;
+  gap:7px;
+  border-bottom:1px solid rgba(16,45,62,.55);
+  font-size:8.5px;
+}
+.ml-meta-row:last-child{border-bottom:none}
+.ml-meta-row span{color:#8398a6;white-space:nowrap}
+.ml-meta-row b{font-weight:500;color:#dbe6ec;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ml-text-ok{color:#65d27a !important}.ml-text-bad{color:#ffbf3f !important}
+
+.ml-explain-block{
+  padding:2px 14px;
+  border-right:1px solid #17364a;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+}
+.ml-explain-block small,
+.ml-signals-block>small{font-size:8px;color:#8296a4}
+.ml-explanation{
+  margin-top:5px;
+  min-height:31px;
+  max-height:34px;
+  overflow:hidden;
+  color:#d0dce2;
+  font-size:9.5px;
+  line-height:1.35;
+}
+.ml-dominant{
+  margin-top:5px;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  gap:7px;
+  align-items:center;
+  font-size:8.4px;
+}
+.ml-dominant span{color:#8398a6}.ml-dominant b{color:#bca5ff;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ml-governance-note{
+  margin-top:auto;
+  padding:4px 6px;
+  border:1px solid #2e4051;
+  border-left:3px solid #7653c7;
+  border-radius:3px;
+  background:rgba(104,75,174,.055);
+  color:#91a4b0;
+  font-size:7.7px;
+  line-height:1.25;
+}
+
+.ml-signals-block{padding:2px 0 0 14px}
+.ml-signals-block>small em{font-style:normal;color:#6f8594}
+.ml-signals{
+  margin-top:6px;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px 10px;
+}
+.ml-signal{min-width:0}
+.ml-signal>div{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:6px;
+  align-items:center;
+  font-size:8px;
+}
+.ml-signal span{color:#9babb5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ml-signal b{font-weight:600;color:#dce6eb;white-space:nowrap}
+.ml-signal>i{
+  display:block;
+  height:4px;
+  margin-top:3px;
+  border-radius:5px;
+  background:#183346;
+  overflow:hidden;
+}
+.ml-signal>i>u{display:block;height:100%;border-radius:5px;background:#65d27a;text-decoration:none}
+.ml-signal.watch>i>u{background:#ffb316}
+.ml-signal.strong>i>u{background:#ff3d45}
+.ml-signal.excluded b{color:#6f8492;font-size:7.2px}
+.ml-signal.excluded>i>u{background:#536773}
+
+@media (max-width:1499px){
+  .ml-shadow-body{grid-template-columns:150px 230px minmax(250px,1fr) 385px}
+  .ml-meta-block,.ml-explain-block{padding-left:10px;padding-right:10px}
+  .ml-signals-block{padding-left:10px}
+}
+@media (min-width:1800px){
+  .ml-shadow-body{grid-template-columns:185px 285px minmax(360px,1fr) 470px}
+  .ml-explanation{font-size:10px}
+  .ml-meta-row,.ml-dominant{font-size:9px}
+}
+
+
+
+/* ==========================================================
+   TOI v1.10.6.2 — CONTEXT / HEALTH / EXECUTIVE OBSERVABILITY
+   Somente frontend. Aquisição congelada permanece intacta.
+   ========================================================== */
+
+.version{color:#8aa9b8 !important}
+.update{
+  min-width:430px !important;
+  padding:2px 0 3px 8px !important;
+  display:flex !important;
+  flex-direction:column;
+  justify-content:flex-end;
+  gap:3px;
+}
+.update-topline{display:flex;align-items:center;justify-content:flex-end;gap:7px;min-height:13px}
+.quality-summary-badge,.source-badge,.state-chip,.ml-context-badge{
+  border:1px solid #294455;border-radius:3px;background:#0a2030;
+}
+.quality-summary-badge{padding:1px 5px;font-size:7.2px;font-weight:700;letter-spacing:.03em}
+.quality-summary-badge.ok{border-color:#2e7e49;color:#71df89}
+.quality-summary-badge.warn{border-color:#8c6b20;color:#ffc34d}
+.quality-summary-badge.bad{border-color:#8b3439;color:#ff646a}
+.quality-summary-badge.neutral{color:#8da0ad}
+
+.source-badges{display:flex;justify-content:flex-end;gap:4px;white-space:nowrap}
+.source-badge{
+  min-width:75px;height:18px;padding:1px 4px;display:grid;
+  grid-template-columns:auto auto auto;align-items:center;gap:3px;
+  font-size:6.7px;line-height:1;
+}
+.source-badge b{font-weight:700;color:#c9d6dd}
+.source-badge i{font-style:normal;color:#9db0bc}
+.source-badge em{font-style:normal;font-weight:700}
+.source-badge.ok{border-color:#286b42}.source-badge.ok em{color:#65d27a}
+.source-badge.warn{border-color:#7b6426}.source-badge.warn em{color:#ffbf3f}
+.source-badge.bad{border-color:#71343a}.source-badge.bad em{color:#ff5a61}
+.source-badge.paused{border-color:#65548a}.source-badge.paused em{color:#bca5ff}
+.source-badge.neutral em{color:#8da0ad}
+
+.status-triad{display:flex;gap:4px;margin:-4px 0 5px}
+.state-chip{padding:2px 5px;font-size:7px;font-weight:700;letter-spacing:.025em;color:#8da0ad}
+.state-chip.ok{border-color:#286b42;color:#6bd982}
+.state-chip.warn{border-color:#81641f;color:#ffbf3f}
+.state-chip.bad{border-color:#7d3439;color:#ff5a61}
+.state-chip.context{border-color:#376b7e;color:#76bdd5}
+.state-chip.neutral{color:#8da0ad}
+.incident-left{padding-top:10px !important;line-height:1.65 !important}
+.incident-state{margin-bottom:3px !important}
+.ml-exec-summary{
+  margin:2px 0 4px;padding:2px 5px;border-left:2px solid #7653c7;
+  background:rgba(118,83,199,.08);font-size:7.8px;color:#a993eb;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.ml-exec-summary.baixo{border-left-color:#52c96a;color:#71dd84}
+.ml-exec-summary.medio{border-left-color:#ffb316;color:#ffc348}
+.ml-exec-summary.alto{border-left-color:#ff3d45;color:#ff6870}
+.ml-exec-summary.blocked{border-left-color:#ffb316;color:#ffbf3f}
+.ml-exec-summary.outside{border-left-color:#4f94ad;color:#79bdd3}
+.ml-exec-summary.neutral{color:#8da0ad}
+
+.score-label.context-label{color:#79bdd3 !important}
+.factor.context-muted{color:#78909d !important}
+.factor.context-muted b{color:#79bdd3 !important;width:31px}
+.operational-context-label{
+  margin-left:auto;color:#7f96a5 !important;font-size:7.5px;white-space:nowrap;
+}
+.operational-context-label.outside{color:#79bdd3 !important}
+.operational-context-label.inside{color:#6dbf80 !important}
+.coverage-label{margin-left:8px !important}
+.timeline-empty{height:100%;display:flex;align-items:center;justify-content:center;color:#78909d;font-size:9px;text-align:center;padding:12px}
+
+.dot-status.idle{background:#71838d;box-shadow:none}
+.ml-context-badge{
+  display:inline-block;margin-left:6px;padding:1px 5px;font-size:7px;font-weight:700;vertical-align:1px;
+}
+.ml-context-badge.outside{border-color:#376b7e;color:#79bdd3}
+.ml-context-badge.inside{border-color:#286b42;color:#65d27a}
+.ml-context-badge.neutral{color:#8da0ad}
+
+.rec-grid[data-count="1"]{grid-template-columns:1fr !important}
+.rec-grid[data-count="2"]{grid-template-columns:repeat(2,1fr) !important}
+.rec-grid[data-count="3"]{grid-template-columns:repeat(3,1fr) !important}
+.rec.contextual{border-color:#28556b;background:rgba(42,105,128,.06)}
+.capacity-context{padding:6px 9px;font-size:8.5px}
+.capacity-context>div{display:flex;align-items:center;gap:8px}
+.capacity-context span{color:#8498a6}.capacity-context b{font-size:13px}
+.capacity-context p{margin:6px 0 3px;color:#b5c2ca;line-height:1.25}
+.capacity-context small{color:#7f95a3;line-height:1.2}
+
+@media (max-width:1499px){
+  .update{min-width:360px !important}
+  .source-badge{min-width:62px;font-size:6.2px}
+  .state-chip{font-size:6.5px;padding-left:4px;padding-right:4px}
+}
+
+
+/* ================================================================
+   TOI v1.10.6.3 — Coverage Gate + System Health Executive
+   ================================================================ */
+.diagnostic{position:relative;padding-bottom:34px}
+.diagnostic-gates{
+  position:absolute;left:14px;right:12px;bottom:8px;
+  display:grid;grid-template-columns:minmax(210px,1fr) minmax(250px,1.15fr) auto;
+  align-items:end;gap:10px;font-size:8px
+}
+.gate-metric{
+  display:grid;grid-template-columns:auto auto;grid-template-rows:auto 5px;
+  gap:2px 6px;align-items:center;color:#8fa7b5
+}
+.gate-metric>b{justify-self:end;color:#dce8ee;font-size:9px}
+.gate-track{
+  grid-column:1/-1;height:5px;border-radius:6px;background:#173348;overflow:hidden
+}
+.gate-track i{display:block;height:100%;width:0;background:#28bd61;transition:width .25s ease}
+.gate-track i.ok{background:#28bd61}
+.gate-track i.warn{background:#ffb316}
+.gate-track i.bad{background:#ff4d55}
+.gate-track i.context{background:#5ca8c4}
+.coverage-gate{grid-template-columns:auto auto auto}
+.coverage-gate .gate-track{grid-column:1/-1}
+.coverage-gate-badge,.diagnostic-mode-badge{
+  border:1px solid #395264;border-radius:3px;padding:1px 4px;
+  font-style:normal;font-size:6.5px;font-weight:700;letter-spacing:.04em;white-space:nowrap
+}
+.coverage-gate-badge.ok,.diagnostic-mode-badge.ok{border-color:#286b42;color:#6bd982}
+.coverage-gate-badge.warn,.diagnostic-mode-badge.warn{border-color:#81641f;color:#ffbf3f}
+.coverage-gate-badge.bad{border-color:#7d3439;color:#ff5a61}
+.coverage-gate-badge.context,.diagnostic-mode-badge.context{border-color:#376b7e;color:#76bdd5}
+.coverage-gate-badge.neutral,.diagnostic-mode-badge.neutral{color:#8da0ad}
+.system-health-exec{
+  margin:4px 0 3px;padding:3px 5px;border-left:2px solid #385367;
+  background:#0a2435;color:#93a9b5;font-size:7.3px;line-height:1.25
+}
+.system-health-exec.ok{border-color:#2aa95a;color:#78d98a}
+.system-health-exec.warn{border-color:#d99f25;color:#ffc551}
+.system-health-exec.neutral{border-color:#526978;color:#8da0ad}
+
+
+/* ================================================================
+   TOI v1.10.6.3.2 — CLARITY HOTFIX
+   Objetivo: zero overlap + hierarquia executiva clara.
+   ================================================================ */
+
+/* Health: content on top, governance footer isolated at bottom. */
+.health-body{
+  position:relative !important;
+  height:140px !important;
+  display:grid !important;
+  grid-template-columns:165px minmax(0,1fr) 335px !important;
+  grid-template-rows:minmax(0,1fr) 37px !important;
+  padding:8px 12px 0 !important;
+  column-gap:0 !important;
+}
+.score-col{
+  grid-column:1;grid-row:1 / span 2;
+  min-width:0;
+}
+.diagnostic{
+  grid-column:2;grid-row:1;
+  position:relative !important;
+  min-width:0;
+  padding:6px 14px 4px !important;
+  overflow:hidden !important;
+}
+.diagnostic small,.factors small{display:block;margin-bottom:3px}
+.diagnostic h2{
+  margin:3px 0 3px !important;
+  font-size:12.5px !important;
+  line-height:1.2 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+.diagnostic p{
+  margin:0 !important;
+  font-size:9.3px !important;
+  line-height:1.35 !important;
+  display:-webkit-box !important;
+  -webkit-line-clamp:3 !important;
+  -webkit-box-orient:vertical !important;
+  overflow:hidden !important;
+}
+.factors{
+  grid-column:3;grid-row:1;
+  min-width:0;
+  padding:6px 0 3px 14px !important;
+  overflow:hidden !important;
+}
+.factors #factors{
+  max-height:74px !important;
+  overflow:hidden !important;
+}
+.factor{
+  height:16px !important;
+  line-height:16px !important;
+  padding:0 !important;
+  font-size:9.2px !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+.factor b{width:28px !important}
+
+/* Governance has its own row. It can no longer collide with evidences. */
+.diagnostic-gates{
+  position:static !important;
+  grid-column:2 / 4 !important;
+  grid-row:2 !important;
+  display:grid !important;
+  grid-template-columns:minmax(180px,.9fr) minmax(230px,1.05fr) 105px !important;
+  align-items:center !important;
+  gap:12px !important;
+  height:37px !important;
+  padding:4px 0 5px 14px !important;
+  border-top:1px solid #123247 !important;
+  font-size:7.4px !important;
+  overflow:hidden !important;
+}
+.gate-metric{
+  min-width:0 !important;
+  display:grid !important;
+  grid-template-columns:1fr auto auto !important;
+  grid-template-rows:13px 5px !important;
+  gap:2px 5px !important;
+  align-items:center !important;
+}
+.gate-metric>span{white-space:nowrap;color:#8fa7b5}
+.gate-metric>b{font-size:8px !important;white-space:nowrap}
+.gate-metric .gate-track{grid-column:1 / -1 !important}
+.coverage-gate{grid-template-columns:1fr auto auto !important}
+.gate-mode{
+  height:27px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+  border-left:1px solid #17364a;padding-left:10px;min-width:0;
+}
+.gate-mode>span{font-size:6.5px;color:#78909d;margin-bottom:2px}
+.diagnostic-mode-badge{font-size:6.4px !important;max-width:96px;overflow:hidden;text-overflow:ellipsis}
+.coverage-gate-badge{font-size:6.2px !important}
+
+/* Chart: legend and context are independent rows. */
+.evolution-panel .legend{
+  height:27px !important;
+  padding:0 10px !important;
+  gap:14px !important;
+  overflow:hidden !important;
+  white-space:nowrap !important;
+  font-size:8.2px !important;
+}
+.evolution-panel .legend span{flex:0 0 auto}
+.chart-meta{
+  position:absolute;
+  left:0;right:0;top:56px;height:20px;
+  display:flex;align-items:center;justify-content:flex-end;gap:8px;
+  padding:0 10px;
+  border-top:1px solid #0e2b3d;
+  border-bottom:1px solid #0e2b3d;
+  background:rgba(6,27,41,.72);
+  overflow:hidden;
+  z-index:2;
+}
+.operational-context-label,.coverage-label{
+  margin:0 !important;
+  padding:1px 5px !important;
+  border:1px solid #274659;
+  border-radius:3px;
+  font-size:7px !important;
+  line-height:12px !important;
+  white-space:nowrap !important;
+  max-width:48%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.operational-context-label.outside{border-color:#376b7e;color:#79bdd3 !important}
+.operational-context-label.inside{border-color:#2a6640;color:#72cf83 !important}
+.coverage-label.partial{border-color:#81641f;color:#ffbf3f !important}
+.evolution-panel .chart-box{top:76px !important}
+
+/* Situation card: keep the platform history secondary and non-dominant. */
+.system-health-exec{
+  margin:3px 0 4px !important;
+  padding:2px 5px !important;
+  max-width:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-size:6.8px !important;
+  line-height:1.35 !important;
+}
+.status-triad{gap:5px !important}
+.state-chip{white-space:nowrap !important}
+
+/* Remove obsolete legacy confidence positioning if the class ever appears. */
+.confidence{position:static !important}
+
+@media (max-width:1499px){
+  .health-body{grid-template-columns:150px minmax(0,1fr) 300px !important}
+  .diagnostic-gates{grid-template-columns:minmax(155px,.85fr) minmax(205px,1fr) 92px !important;gap:8px !important}
+  .factor{font-size:8.7px !important}
+  .diagnostic p{font-size:8.8px !important}
+  .evolution-panel .legend{gap:10px !important;font-size:7.8px !important}
+}
+
+
+/* ================================================================
+   TOI v1.10.6.3.3 — FRONTEND LAYOUT TUNING
+   - Resumo P34 + P135 no card Situação Atual.
+   - Meta do gráfico promovida ao cabeçalho.
+   - Navegador horizontal oculto quando a janela cabe integralmente.
+   - Faixa de Saúde compactada sem remover conteúdo.
+   ================================================================ */
+
+/* Compactação vertical: recupera 22 px da área nobre e puxa o cockpit para cima. */
+.top-row{height:148px !important}
+.kpi-row{top:218px !important}
+.middle-row{top:332px !important}
+.detail-row{top:609px !important}
+.footer-row{top:799px !important}
+.ml-row{top:954px !important}
+#goldenStage{height:1128px !important}
+.sidebar,.main{height:1073px !important}
+
+.health-body{
+  height:119px !important;
+  grid-template-columns:145px minmax(0,1fr) 315px !important;
+  grid-template-rows:minmax(0,1fr) 32px !important;
+  padding:5px 10px 0 !important;
+}
+.score-col{justify-content:flex-start !important;padding-top:2px}
+.score-ring{
+  width:80px !important;height:80px !important;border-width:10px !important;
+}
+.score-ring strong{font-size:23px !important}
+.score-ring small{font-size:8px !important}
+.score-label{margin-top:2px !important;font-size:9px !important}
+.trend{margin-top:1px !important;font-size:7.8px !important}
+.diagnostic{padding:3px 12px 2px !important}
+.diagnostic small,.factors small{font-size:7.9px !important;margin-bottom:2px !important}
+.diagnostic h2{font-size:11.5px !important;margin:2px 0 !important}
+.diagnostic p{font-size:8.4px !important;line-height:1.28 !important;-webkit-line-clamp:3 !important}
+.factors{padding:3px 0 1px 12px !important}
+.factors #factors{max-height:61px !important}
+.factor{height:14px !important;line-height:14px !important;font-size:8.4px !important}
+.factor b{width:26px !important}
+.diagnostic-gates{
+  height:32px !important;
+  grid-template-columns:minmax(155px,.9fr) minmax(205px,1.05fr) 94px !important;
+  gap:9px !important;padding:2px 0 3px 12px !important;
+}
+.gate-metric{grid-template-rows:11px 4px !important;font-size:6.8px !important}
+.gate-mode{height:23px !important;padding-left:8px !important}
+.gate-mode>span{font-size:6px !important}
+.diagnostic-mode-badge,.coverage-gate-badge{font-size:5.9px !important}
+
+/* Situação atual: mantém contexto à esquerda e oferece leitura simétrica de P34/P135. */
+.incident-body{height:119px !important;grid-template-columns:minmax(0,1fr) 224px !important}
+.incident-left{padding:7px 10px !important;line-height:1.45 !important;font-size:8.3px !important;overflow:hidden}
+.incident-state{font-size:13px !important;margin:3px 0 !important}
+.system-health-exec{margin:2px 0 !important;padding:1px 4px !important;font-size:6.2px !important}
+.ml-exec-summary{margin:2px 0 !important}
+.dual-congestion-summary{
+  border-left:1px solid #17364a !important;
+  padding:5px 7px !important;
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:6px !important;
+  min-width:0;
+}
+.congestion-summary-col{min-width:0}
+.congestion-summary-col+.congestion-summary-col{border-left:1px solid #17364a;padding-left:6px}
+.congestion-summary-title{
+  height:16px;display:flex;align-items:center;
+  color:#a8bac5;font-size:8px;font-weight:700;letter-spacing:.04em;
+  border-bottom:1px solid #102d3e;margin-bottom:2px;
+}
+.congestion-summary-row{margin:0 !important;height:27px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:3px}
+.congestion-summary-row small{font-size:6.7px !important;color:#7f94a2 !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.congestion-summary-row strong{font-size:14px !important;font-weight:500 !important;white-space:nowrap}
+
+/* Gráfico: contexto fica no próprio cabeçalho; a área de plotagem começa logo após a legenda. */
+.evolution-heading{
+  display:flex !important;align-items:center !important;justify-content:space-between !important;
+  gap:10px;padding:0 10px !important;
+}
+.evolution-heading>span:first-child{white-space:nowrap}
+.evolution-heading .chart-meta{
+  position:static !important;height:auto !important;min-width:0;max-width:58%;
+  display:flex !important;align-items:center !important;justify-content:flex-end !important;gap:5px !important;
+  padding:0 !important;border:0 !important;background:transparent !important;overflow:hidden !important;
+}
+.evolution-heading .operational-context-label,.evolution-heading .coverage-label{
+  max-width:none !important;padding:1px 4px !important;font-size:6.4px !important;line-height:11px !important;
+}
+.evolution-panel .legend{height:27px !important}
+.evolution-panel .chart-box{top:56px !important;bottom:0 !important}
+
+@media (max-width:1499px){
+  .health-body{grid-template-columns:132px minmax(0,1fr) 280px !important}
+  .incident-body{grid-template-columns:minmax(0,1fr) 210px !important}
+  .diagnostic h2{font-size:10.7px !important}
+  .factor{font-size:8px !important}
+  .evolution-heading .chart-meta{max-width:62%}
+}
+
+
+/* TOI v1.10.6.3.4 — Infra inventory visibility */
+.table-card h3{display:flex;align-items:center;gap:5px}
+.inventory-meta{
+  margin-left:auto;color:#7593a4;border:1px solid #24465b;border-radius:3px;
+  padding:1px 4px;font-size:6.6px;font-weight:600;letter-spacing:.02em
+}
+.panel-link-button{
+  width:100%;border-left:0;border-right:0;border-bottom:0;border-radius:0;
+  font-family:inherit;cursor:pointer;outline:none
+}
+.panel-link-button:hover:not(:disabled){color:#fff;background:#0b2637}
+.panel-link-button:focus-visible{box-shadow:inset 0 0 0 1px #39a7cf}
+.panel-link-button:disabled{cursor:default;opacity:.55}
+body.infra-modal-open{overflow:hidden}
+.infra-inventory-modal{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center}
+.infra-inventory-modal.open{display:flex}
+.infra-modal-backdrop{position:absolute;inset:0;background:rgba(0,8,15,.72);backdrop-filter:blur(2px)}
+.infra-modal-dialog{
+  position:relative;z-index:1;width:min(1040px,92vw);max-height:82vh;
+  display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;
+  background:#071d2b;border:1px solid #285069;border-radius:7px;
+  box-shadow:0 18px 55px rgba(0,0,0,.55);overflow:hidden;color:#dce8ee
+}
+.infra-modal-header{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
+  padding:14px 16px 10px;border-bottom:1px solid #17384a;background:#082232
+}
+.infra-modal-header small{color:#58a9c5;font-size:8px;letter-spacing:.06em}
+.infra-modal-header h2{margin:3px 0 2px;font-size:16px;color:#f3f8fa}
+.infra-modal-header p{margin:0;color:#90a8b5;font-size:9px}
+.infra-modal-close{
+  width:30px;height:30px;border:1px solid #34546a;background:#0b2839;
+  color:#cfe0e7;border-radius:4px;font-size:20px;line-height:1;cursor:pointer
+}
+.infra-modal-close:hover{background:#12384d;color:#fff}
+.infra-modal-toolbar{
+  display:flex;align-items:center;gap:7px;padding:8px 16px;
+  border-bottom:1px solid #143345;background:#061a27
+}
+.infra-modal-chip{
+  border:1px solid #385364;border-radius:3px;padding:2px 6px;
+  font-size:7px;color:#a7bbc6;font-weight:700
+}
+.infra-modal-chip.ok{border-color:#277245;color:#68dc86}
+.infra-modal-chip.warn{border-color:#80631f;color:#ffc24b}
+.infra-modal-chip.neutral{color:#8ca1ad}
+.infra-modal-note{margin-left:auto;color:#78909d;font-size:7.5px}
+.infra-modal-table{overflow:auto;padding:8px 16px 12px}
+.infra-full-head,.infra-full-row{
+  display:grid;align-items:center;column-gap:10px;min-height:30px;border-bottom:1px solid #103043
+}
+.infra-full-head{
+  position:sticky;top:-8px;z-index:2;background:#082232;color:#7597a9;
+  font-size:7.5px;font-weight:700;text-transform:uppercase
+}
+.infra-full-head.gateway,.infra-full-row.gateway{grid-template-columns:minmax(230px,1fr) 90px 180px 150px 170px}
+.infra-full-head.trunk,.infra-full-row.trunk{grid-template-columns:minmax(260px,1fr) 110px 120px 160px}
+.infra-full-row{font-size:9px;color:#d6e3e9}
+.infra-full-row:hover{background:#0a2738}
+.infra-full-row>span:first-child{
+  display:flex;align-items:center;gap:8px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.infra-full-row>span:first-child>b{width:22px;flex:0 0 22px;color:#527f95;font-size:7px;text-align:right}
+.infra-status-text{display:flex;align-items:center;gap:6px;color:#a7bbc5}
+.status-neutral{border:1px solid #536675;color:#a1b1ba;padding:1px 4px;font-style:normal;border-radius:2px}
+.infra-modal-empty{padding:30px;text-align:center;color:#8da3af}
+.infra-modal-footer{
+  padding:8px 16px;border-top:1px solid #17384a;background:#061a27;
+  color:#718b99;font-size:7.5px
+}
+
+
+/* ================================================================
+   TOI v1.10.6.3.5 — Executive Clarity
+   ================================================================ */
+
+/* P34/P135 permanecem apenas no resumo superior e no gráfico.
+   Os oito KPIs operacionais ganham mais largura e legibilidade. */
+.kpi-row{
+  grid-template-columns:repeat(8,minmax(0,1fr)) !important;
+}
+.kpi .label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi .sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Situação Atual: hierarquia simples
+   1) estado triádico
+   2) estado operacional principal
+   3) ML Shadow compacto
+   timing só aparece se existir incidente ativo. */
+.executive-hidden{display:none !important}
+.incident-left{
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:flex-start !important;
+  gap:4px !important;
+  padding:7px 10px !important;
+  line-height:1.2 !important;
+}
+.status-triad{margin:0 !important}
+.incident-state{
+  margin:2px 0 1px !important;
+  font-size:14px !important;
+  line-height:18px !important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.ml-exec-summary.compact{
+  margin:0 !important;
+  padding:2px 5px !important;
+  min-height:17px !important;
+  line-height:13px !important;
+  font-size:7px !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  background:#0a2435 !important;
+}
+.incident-timing{
+  display:flex;
+  gap:14px;
+  margin-top:1px;
+  color:#8499a6;
+  font-size:7.2px;
+}
+.incident-timing[hidden]{display:none !important}
+.incident-timing b{color:#c9d7de;font-weight:500}
+
+/* O tooltip do chip TOI preserva System Health histórico sem poluir o cockpit. */
+#platformStatusChip{cursor:help}
+
+/* Mais espaço entre o título do eixo direito e o primeiro tick numérico.
+   O canvas já recebe top-padding 22px no JS. */
+.evolution-panel .chart-box{overflow:hidden}
+
+/* TOI v1.10.6.3.6 */
+.incident-body{grid-template-columns:1fr !important}
+.status-triad{display:flex;flex-wrap:wrap;gap:4px}
+.kpi-row{grid-template-columns:1.55fr repeat(8,minmax(0,1fr)) !important}
+.congestion-dual-kpi{padding:7px 8px!important;border-color:#24485e!important}
+.congestion-dual-kpi .label{color:#a9c2cf!important;font-size:7px!important;margin-bottom:5px}
+.congestion-kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.congestion-kpi-grid>div{min-width:0;border-left:2px solid #345366;padding-left:6px}
+.congestion-kpi-grid>div:first-child{border-left-color:#ff7a8a}
+.congestion-kpi-grid>div:last-child{border-left-color:#ff3d45}
+.congestion-kpi-grid span{display:block;color:#8ba4b1;font-size:7px;font-weight:700}
+.congestion-kpi-grid strong{display:block;font-size:16px;line-height:18px;font-weight:600}
+.congestion-kpi-grid small{display:block;color:#758e9c;font-size:6.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.infra-alerts-panel{display:flex;flex-direction:column;gap:3px}
+.infra-alert{display:grid;grid-template-columns:30px minmax(0,1fr);gap:5px;align-items:start;font-size:7.2px;line-height:1.25}
+.infra-alert b{border:1px solid #445a68;border-radius:2px;padding:1px 3px;text-align:center;font-size:6.3px}
+.infra-alert span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#aabcc5}
+.infra-alert.ok b{border-color:#287044;color:#65d27a}.infra-alert.warn b{border-color:#80631f;color:#ffbf3f}
+.infra-alert.bad b{border-color:#8a3137;color:#ff5a61}.infra-alert.context b{border-color:#31647a;color:#78bdd4}
+.gateway-health-state{display:inline-block;max-width:100%;padding:1px 4px;border:1px solid #485d6a;border-radius:2px;font-style:normal;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gateway-health-state.ok{border-color:#278248;color:#62d279}.gateway-health-state.warn{border-color:#8a681d;color:#ffc247}
+.gateway-health-state.bad{border-color:#8f3038;color:#ff5961}.gateway-health-state.context{border-color:#376a80;color:#75bdd7}
+.gateway-health-state.neutral{border-color:#536471;color:#91a3ac}
+.chart-axis-label{border:1px solid #285766;border-radius:3px;padding:1px 4px;color:#74d21d;background:#082435;font-size:6.5px;font-weight:600;white-space:nowrap}
+
+
+/* TOI v1.10.6.3.6.1 — Recovery Hotfix
+   Gateway Health Shadow is supplemental and must never interrupt main render. */
+#gatewayStatusChip.neutral{opacity:.9}
+
+
+/* TOI v1.10.6.3.7 — Dynamic Infra Discovery */
+#gatewayInventoryMeta,#trunkInventoryMeta{cursor:help}
+
+/* TOI v1.10.6.3.7.1 — Gateway Health Activation */
+
+/* TOI v1.10.6.3.7.4 — Gateway Intelligence Shadow */
+.infra-modal-dialog{width:min(1040px,92vw)}
+.gateway-dimension{font-size:8px;color:#8fb2c2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ================================================================
+   TOI v1.10.6.3.7.5 — Temporal Analytics + Managerial Drilldowns
+   ================================================================ */
+.nav.actionable{cursor:pointer;transition:background .12s ease,color .12s ease}
+.nav.actionable:hover,.nav.analytics-selected{background:#0c293b;color:#eff8fb}
+.nav.actionable:focus-visible{outline:1px solid #2b91b0;outline-offset:-1px}
+.periods .custom{opacity:1;cursor:pointer}
+.periods .custom.active{background:#0b5667;border-color:#197184;color:#fff}
+.actionable-link{cursor:pointer;transition:background .12s ease,color .12s ease}
+.actionable-link:hover{background:#0a2637;color:#fff}
+.temporal-mode-label{display:inline-flex;align-items:center;min-height:15px;padding:1px 5px;border:1px solid #285766;border-radius:3px;color:#8db3c3;background:#082435;font-size:6.6px;font-weight:600;white-space:nowrap}
+.temporal-mode-label:empty{display:none}
+
+body.analytics-modal-open{overflow:hidden}
+.analytics-modal{position:fixed;inset:0;z-index:6200;display:none;align-items:center;justify-content:center;font-family:"Segoe UI",Tahoma,Arial,sans-serif}
+.analytics-modal.open{display:flex}
+.analytics-modal-backdrop{position:absolute;inset:0;background:rgba(0,7,13,.78);backdrop-filter:blur(2px)}
+.analytics-modal-dialog{position:relative;z-index:1;width:min(1180px,94vw);max-height:88vh;display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;background:linear-gradient(180deg,#082435,#071a28);border:1px solid #2b5368;border-radius:7px;box-shadow:0 24px 70px rgba(0,0,0,.48);overflow:hidden;color:#dfeaf0}
+.analytics-modal-dialog.compact{width:min(720px,92vw);grid-template-rows:auto minmax(0,1fr) auto}
+.analytics-modal-header{position:relative;padding:14px 52px 12px 16px;border-bottom:1px solid #173a4d;background:#082333}
+.analytics-modal-header small{color:#58a9c5;font-size:8px;letter-spacing:.07em;text-transform:uppercase}
+.analytics-modal-header h2{margin:4px 0 2px;font-size:17px;line-height:1.2;color:#f3f8fa;font-weight:600}
+.analytics-modal-header p{margin:0;color:#8fa8b5;font-size:9px;line-height:1.35}
+.analytics-modal-close{position:absolute;right:14px;top:13px;width:32px;height:32px;border:1px solid #31566b;border-radius:5px;background:#092536;color:#b9ced8;font-size:20px;line-height:28px;cursor:pointer}
+.analytics-modal-close:hover{background:#12384d;color:#fff}
+.analytics-modal-toolbar{min-height:38px;padding:8px 16px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;border-bottom:1px solid #143648;background:#061b29}
+.analytics-chip{display:inline-flex;align-items:center;min-height:21px;padding:2px 7px;border:1px solid #3c5d6d;border-radius:3px;font-size:8px;color:#a9bdc6;background:#082333}
+.analytics-chip.ok{border-color:#287448;color:#6fe18b}
+.analytics-chip.warn{border-color:#82651e;color:#ffc64c}
+.analytics-chip.bad{border-color:#8b353b;color:#ff646b}
+.analytics-chip.neutral{color:#8ea4af}
+.analytics-modal-body{overflow:auto;padding:14px 16px 18px;scrollbar-width:thin;scrollbar-color:#31536a #071a28}
+.analytics-modal-footer{padding:8px 16px;border-top:1px solid #17384a;background:#061a27;color:#718b99;font-size:7.7px;line-height:1.4}
+
+.custom-period-form{padding:18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;background:#071c2a}
+.custom-period-form label{display:flex;flex-direction:column;gap:5px;color:#91a8b4;font-size:9px}
+.custom-period-form input{height:35px;padding:0 9px;background:#061824;border:1px solid #24485c;border-radius:4px;color:#e5edf1;font:10px "Segoe UI",Tahoma,Arial,sans-serif;color-scheme:dark}
+.custom-period-form input:focus{outline:1px solid #2d8ba9;border-color:#2d8ba9}
+.analytics-inline-error{margin:-7px 16px 12px;padding:8px 10px;border:1px solid #813238;border-radius:4px;background:#28151b;color:#ff858a;font-size:9px}
+.analytics-modal-actions{padding:11px 16px;display:flex;justify-content:flex-end;gap:8px;border-top:1px solid #17384a;background:#061a27}
+.analytics-btn{height:31px;padding:0 14px;border:1px solid #31566b;border-radius:4px;background:#092536;color:#bdd0d9;font-size:9px;cursor:pointer}
+.analytics-btn:hover{background:#10364a;color:#fff}
+.analytics-btn.primary{border-color:#1d7388;background:#0b5667;color:#fff}
+.analytics-btn.primary:hover{background:#0d677a}
+
+.analytics-stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.analytics-stat{min-height:76px;padding:10px 11px;border:1px solid #183d50;border-radius:5px;background:linear-gradient(180deg,#092536,#081f2e)}
+.analytics-stat>span{display:block;color:#86a0ad;font-size:8px;text-transform:uppercase;letter-spacing:.035em}
+.analytics-stat>b{display:block;margin-top:6px;color:#eaf2f5;font-size:20px;line-height:22px;font-weight:500}
+.analytics-stat>small{display:block;margin-top:5px;color:#78909c;font-size:7.5px;line-height:1.25}
+.analytics-risk{font-style:normal;font-size:15px;font-weight:700}
+.analytics-risk.alto{color:#ff5a61}.analytics-risk.médio{color:#ffc34b}.analytics-risk.baixo{color:#69d982}
+.analytics-explain,.analytics-section{margin-top:10px;padding:11px 12px;border:1px solid #17394b;border-radius:5px;background:#071d2b}
+.analytics-explain h4,.analytics-section h4{margin:0 0 7px;color:#e7f0f4;font-size:10px;font-weight:600}
+.analytics-explain p{margin:4px 0;color:#9db1bb;font-size:8.5px;line-height:1.5}
+.analytics-explain b{color:#cbdbe2;font-weight:600}
+.analytics-empty{padding:18px;text-align:center;color:#839aa7;font-size:9px}
+.analytics-table{border:1px solid #153649;border-radius:4px;overflow:hidden}
+.analytics-table-head,.analytics-table-row{display:grid;grid-template-columns:1.2fr 1.2fr .75fr .9fr;gap:8px;align-items:center;min-height:28px;padding:0 9px;border-bottom:1px solid #103143}
+.analytics-table-head{background:#092638;color:#7897a7;font-size:7.5px;text-transform:uppercase;font-weight:700}
+.analytics-table-row{color:#cddbe1;font-size:8.5px}
+.analytics-table-row:last-child{border-bottom:0}.analytics-table-row:hover{background:#092536}
+.analytics-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.analytics-facts span{padding:8px;border:1px solid #15394b;border-radius:4px;background:#082333;color:#819aa6;font-size:8px}
+.analytics-facts b{display:block;margin-top:3px;color:#d6e3e9;font-size:10px;font-weight:500}
+.analytics-trunks{border:1px solid #153649;border-radius:4px;overflow:hidden}
+.analytics-trunk-head,.analytics-trunk-row{display:grid;grid-template-columns:minmax(260px,1fr) 120px 120px;gap:10px;align-items:center;min-height:28px;padding:0 9px;border-bottom:1px solid #103143}
+.analytics-trunk-head{background:#092638;color:#7897a7;font-size:7.5px;text-transform:uppercase;font-weight:700}
+.analytics-trunk-row{color:#cedce2;font-size:8.5px}.analytics-trunk-row:last-child{border-bottom:0}.analytics-trunk-row:hover{background:#092536}
+
+@media (max-width:900px){
+  .analytics-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .analytics-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .custom-period-form{grid-template-columns:1fr}
+}
+
+
+/* ================================================================
+   TOI v1.10.6.3.7.5 R1.2.1 — Capacity Operational + Gateway Context
+   ================================================================ */
+
+/* Card principal: cinco leituras executivas, preservando a densidade do dashboard. */
+.capacity-grid-v2{
+  grid-template-columns:88px minmax(0,1fr) !important;
+  column-gap:8px !important;
+}
+.capacity-grid-v2 .capacity-risk{padding-right:7px !important}
+.capacity-grid-v2 .capacity-risk .risk-value{
+  font-size:17px !important;line-height:18px !important;margin:1px 0 5px !important
+}
+.capacity-grid-v2 .capacity-headroom-label{font-size:7.1px !important;line-height:8.5px !important}
+.capacity-grid-v2 .capacity-headroom{font-size:10px !important;line-height:11px !important}
+.capacity-grid-v2 .capacity-metrics{
+  display:grid !important;grid-template-rows:repeat(5,minmax(0,1fr));align-content:stretch
+}
+.capacity-grid-v2 .capacity-metric{
+  height:auto !important;min-height:0 !important;line-height:1.05 !important;font-size:7.2px !important;
+  border-bottom:1px solid rgba(16,45,62,.32) !important
+}
+.capacity-grid-v2 .capacity-metric:last-child{border-bottom:0 !important}
+.capacity-grid-v2 .capacity-bottleneck b{
+  max-width:118px;overflow:hidden;text-overflow:ellipsis
+}
+.capacity-resilience.bad{color:#ff646b !important}
+.capacity-resilience.context{color:#75bdd7 !important}
+.capacity-resilience.ok{color:#69d982 !important}
+
+/* Inventário detalhado de Gateways: Ground Truth operacional é coluna de primeira classe. */
+.infra-modal-dialog{width:min(1320px,95vw)}
+.infra-full-head.gateway,.infra-full-row.gateway{
+  grid-template-columns:minmax(185px,1.05fr) 78px 148px 115px minmax(190px,1.25fr) minmax(220px,1.35fr)
+}
+.gateway-capacity-treatment{
+  display:inline-block;max-width:100%;font-size:7.8px;line-height:1.25;
+  white-space:normal;color:#a9bbc5
+}
+.gateway-capacity-treatment.bad{color:#ff646b}
+.gateway-capacity-treatment.warn{color:#ffc64c}
+.gateway-capacity-treatment.context{color:#78bdd4}
+.gateway-capacity-treatment.ok{color:#69d982}
+.gateway-capacity-treatment.neutral{color:#9fb0b9}
+
+/* Capacity drilldown: multidimensional, explicável e gerencial. */
+.analytics-risk.bad{color:#ff5a61}
+.analytics-risk.warn{color:#ffc34b}
+.analytics-risk.ok{color:#69d982}
+.analytics-risk.neutral{color:#9aadb7}
+.capacity-executive-read{border-color:#24516a;background:linear-gradient(180deg,#082638,#071f2e)}
+.analytics-section-note{
+  margin:-1px 0 8px;color:#8fa6b1;font-size:8.2px;line-height:1.45
+}
+.analytics-governance-note{
+  margin:9px 0 0;color:#76909d;font-size:7.8px;line-height:1.45
+}
+
+.capacity-dimensions,.capacity-resources{
+  border:1px solid #153649;border-radius:4px;overflow:auto
+}
+.capacity-dimension-head,.capacity-dimension-row{
+  display:grid;grid-template-columns:170px 135px minmax(240px,1fr) minmax(280px,1.25fr);
+  gap:9px;align-items:center;min-height:31px;padding:0 9px;border-bottom:1px solid #103143
+}
+.capacity-dimension-head{
+  position:sticky;top:0;background:#092638;color:#7897a7;font-size:7.3px;
+  text-transform:uppercase;font-weight:700;z-index:1
+}
+.capacity-dimension-row{color:#cbdbe1;font-size:8.2px}
+.capacity-dimension-row:last-child{border-bottom:0}
+.capacity-dimension-row:hover{background:#092536}
+.capacity-dimension-name{font-weight:600;color:#dfeaf0}
+.capacity-state{
+  display:inline-block;padding:2px 5px;border:1px solid #526774;border-radius:3px;
+  font-style:normal;font-size:7.2px;white-space:nowrap
+}
+.capacity-state.bad{border-color:#8b353b;color:#ff646b}
+.capacity-state.warn{border-color:#82651e;color:#ffc64c}
+.capacity-state.ok{border-color:#287448;color:#6fe18b}
+.capacity-state.neutral{color:#96aab5}
+
+.capacity-resource-head,.capacity-resource-row{
+  display:grid;align-items:center;gap:8px;min-height:30px;padding:0 9px;border-bottom:1px solid #103143
+}
+.capacity-resource-head{
+  position:sticky;top:0;z-index:1;background:#092638;color:#7897a7;
+  font-size:7.1px;text-transform:uppercase;font-weight:700
+}
+.capacity-resource-row{color:#cedce2;font-size:8.1px}
+.capacity-resource-row:last-child{border-bottom:0}
+.capacity-resource-row:hover{background:#092536}
+.capacity-resource-head.trunk,.capacity-resource-row.trunk{
+  grid-template-columns:minmax(210px,1fr) 75px 75px 95px 100px 95px
+}
+.capacity-resource-head.gateway,.capacity-resource-row.gateway{
+  grid-template-columns:minmax(175px,.9fr) 70px 70px 150px minmax(190px,1.15fr) minmax(220px,1.35fr)
+}
+
+@media (max-width:1050px){
+  .infra-modal-dialog{width:96vw}
+  .infra-full-head.gateway,.infra-full-row.gateway{
+    grid-template-columns:minmax(170px,1fr) 75px 135px 95px minmax(170px,1fr) minmax(190px,1fr)
+  }
+  .capacity-dimension-head,.capacity-dimension-row{
+    grid-template-columns:145px 120px minmax(220px,1fr) minmax(240px,1fr)
+  }
+}
+
+/* R1.2.1 — N/C nunca é zero */
+.occ.nc{color:#8da0ad!important}
+.risk-value.risk-neutral{color:#8da0ad}
+
+
+/* R1.2.2 — Gateway temporal analytics */
+.gateway-analysis-list{display:flex;flex-direction:column;gap:10px}
+.gateway-analysis-card{border:1px solid #18475d;border-radius:8px;background:#06283a;overflow:hidden}
+.gateway-analysis-card>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(210px,1.35fr) .65fr .9fr 1fr .72fr .65fr;gap:10px;align-items:center;padding:11px 13px;font-size:11px;border-bottom:1px solid transparent}
+.gateway-analysis-card[open]>summary{border-bottom-color:#18475d;background:#083146}
+.gateway-analysis-card>summary::-webkit-details-marker{display:none}
+.gateway-analysis-name{font-weight:800;color:#e9f7ff}
+.gateway-analysis-body{padding:12px 13px 14px}
+.gateway-window-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:10px}
+.gateway-window-grid>div{border:1px solid #17465b;background:#052435;border-radius:7px;padding:9px;line-height:1.55;color:#a9c6d4;font-size:10px}
+.gateway-window-grid h5{margin:0 0 5px;color:#7bd9ff;font-size:10px;text-transform:uppercase;letter-spacing:.04em}
+.entity-window-na{color:#718b99}
+.gateway-selected-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:8px 0}
+.gateway-selected-grid>div{border:1px solid #153f52;border-radius:6px;padding:8px;background:#052131;display:flex;flex-direction:column;gap:4px}
+.gateway-selected-grid span{color:#7296a8;font-size:9px;text-transform:uppercase}
+.gateway-selected-grid b{font-size:10px;color:#d8eef8;font-weight:600}
+.gateway-event-reason,.gateway-interpretation,.gateway-governance{margin-top:8px;padding:9px 10px;border-radius:6px;font-size:10px;line-height:1.5}
+.gateway-event-reason{background:#082b3c;border-left:3px solid #ffb316;color:#c9e2ed}
+.gateway-interpretation{background:#062c30;border-left:3px solid #48d17e;color:#d9f3e2}
+.gateway-governance{background:#071f2d;border:1px dashed #1d4d60;color:#7fa4b4}
+@media(max-width:1050px){.gateway-analysis-card>summary{grid-template-columns:1.4fr .7fr 1fr 1fr}.gateway-analysis-card>summary span:nth-child(5),.gateway-analysis-card>summary span:nth-child(6){display:none}.gateway-window-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gateway-selected-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* ================================================================
+   TOI v1.10.6.3.7.5 R1.2.3 — Executive Pressure + Trunk Temporal
+   + Lifecycle + Operational Knowledge Hardening
+   ================================================================ */
+.top-row{grid-template-columns:730px 350px 269px !important;gap:10px !important}
+.health-body{grid-template-columns:145px minmax(0,1fr) 270px !important}
+.telecom-pressure-panel{height:100%}
+.telecom-pressure-body{height:calc(100% - 29px);padding:13px 14px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.telecom-pressure-scope{font-size:8px;font-weight:700;color:#72a9be;text-transform:uppercase;letter-spacing:.05em}
+.telecom-pressure-body strong{font-size:28px;line-height:31px;font-weight:600;margin:5px 0 2px;color:#e9f3f6}
+.telecom-pressure-body.warn strong{color:#ffc043}.telecom-pressure-body.bad strong{color:#ff5961}.telecom-pressure-body.ok strong{color:#65d27a}.telecom-pressure-body.neutral strong{color:#8da0ad}
+.telecom-pressure-body>span{font-size:9px;color:#b8c9d1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.telecom-pressure-body>small{margin-top:5px;color:#7f98a5;font-size:7.5px;line-height:1.35}
+.kpi-row{grid-template-columns:1.55fr repeat(7,minmax(0,1fr)) !important}
+.trunk-activity{justify-content:center !important}
+.trunk-activity .dot-status{margin:0 !important}
+.gateway-knowledge{margin-top:8px;padding:8px 10px;border:1px solid #765c1e;border-radius:4px;background:#28230f;color:#e7cd76;font-size:8.3px;line-height:1.45}
+.gateway-knowledge span{margin-left:7px;color:#9e8e64;font-size:7px}
+.gateway-episodes{margin-top:8px;padding:8px 10px;border:1px solid #315063;border-radius:4px;background:#071b29;color:#a9bec9;font-size:8.2px;line-height:1.5}
+.trunk-analysis-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.trunk-analysis-card{border:1px solid #18475d;border-radius:6px;background:#06283a;overflow:hidden}
+.trunk-analysis-card>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(240px,1.4fr) .65fr .72fr .72fr 1.05fr;gap:10px;align-items:center;padding:10px 12px;font-size:9px}
+.trunk-analysis-card>summary::-webkit-details-marker{display:none}
+.trunk-analysis-card>summary span:first-child{display:flex;align-items:center;gap:7px;min-width:0}
+.trunk-analysis-card>summary span:first-child b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trunk-analysis-card>summary i{font-style:normal;font-size:6.5px;border:1px solid #28738b;color:#71c6df;border-radius:2px;padding:1px 4px}
+.trunk-analysis-card[open]>summary{border-bottom:1px solid #18475d;background:#083146}
+.trunk-analysis-body{padding:11px 12px 13px}
+.trunk-window-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.trunk-window-grid>div{padding:8px 9px;border:1px solid #173e52;border-radius:4px;background:#071f2e;min-height:53px}
+.trunk-window-grid span{display:block;color:#7896a5;font-size:7px;text-transform:uppercase;margin-bottom:4px}
+.trunk-window-grid b{color:#c9d9e0;font-size:8.1px;line-height:1.4;font-weight:600}
+.trunk-interpretation{margin-top:8px;padding:8px 10px;border-left:3px solid #29a86a;background:#07362f;color:#b8ddd0;font-size:8.2px;line-height:1.45}
+@media(max-width:1100px){.trunk-window-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.trunk-analysis-card>summary{grid-template-columns:1.4fr .7fr .8fr 1fr}.trunk-analysis-card>summary span:nth-child(4){display:none}}
+
+.trunk-quick-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-bottom:8px}.trunk-quick-grid>div{padding:7px 9px;border:1px solid #1e4a60;border-radius:4px;background:#082536}.trunk-quick-grid span{display:block;color:#6faac0;font-size:7px;text-transform:uppercase;margin-bottom:3px}.trunk-quick-grid b{font-size:8px;color:#c8d9e0;font-weight:600}@media(max-width:1100px){.trunk-quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* R1.2.4 — Period Semantics + Historical Coverage */
+.kpi .label em{font-style:normal;color:#7f96a5;font-weight:400;font-size:8px}
+.coverage-label.partial{border-color:#8f6c18!important;color:#ffca55!important;background:#2a220b!important}
+.telecom-pressure-body small{line-height:1.3}
+.analytics-chip.partial{border-color:#916c18;color:#ffcc5c;background:#2a2109}
+.analytics-period-warning{margin:0 0 10px;padding:9px 11px;border:1px solid #7d5d17;border-left:3px solid #ffb316;border-radius:4px;background:#201b0b;color:#dbc785;font-size:10px}
+.analytics-period-warning b{color:#ffd873}
+
+/* R1.2.4 H2-A — Gateway Operational Story + Human Feedback */
+.term-help{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border:1px solid #397087;border-radius:50%;font-size:8px;line-height:1;color:#83d6f3;cursor:help;vertical-align:1px;margin-left:2px}
+.gateway-story{margin-bottom:12px;border:1px solid #23627a;border-radius:7px;background:#06202f;overflow:hidden}
+.gateway-story-head{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:11px 12px;border-bottom:1px solid #1d4e62;background:#072839}
+.gateway-story-head span{display:block;color:#5fc7ea;font-size:8px;font-weight:700;letter-spacing:.05em}
+.gateway-story-head h4{margin:3px 0 0;color:#f1f8fb;font-size:13px;line-height:1.35}
+.gateway-feedback-open{border:1px solid #2f8098;background:#073143;color:#9ce4f8;border-radius:4px;padding:7px 10px;font-size:8px;font-weight:700;cursor:pointer;white-space:nowrap}
+.gateway-feedback-open:hover{background:#0a3d52}
+.gateway-story-timeline{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px 12px}
+.gateway-story-timeline>div{border:1px solid #173f51;border-radius:5px;background:#051d2b;padding:9px 10px;min-height:62px}
+.gateway-story-timeline>div:last-child{grid-column:1/-1}
+.gateway-story-timeline b{display:block;color:#72d5f3;font-size:8.5px;text-transform:uppercase;letter-spacing:.025em;margin-bottom:5px}
+.gateway-story-timeline p{margin:0;color:#c7dbe4;font-size:9.5px;line-height:1.48}
+.gateway-feedback-history{margin:0 12px 10px;padding:9px 10px;border:1px solid #5e5120;border-radius:5px;background:#211d0c}
+.gateway-feedback-history h5{margin:0 0 6px;color:#ffd76c;font-size:9px;text-transform:uppercase}
+.gateway-feedback-history>div{padding:5px 0;border-top:1px solid #41391b;color:#d9cfaa;font-size:8.5px;line-height:1.45}
+.gateway-feedback-history>div:first-of-type{border-top:0}
+.gateway-feedback-history span{color:#9fc9d8}.gateway-feedback-history small{display:block;color:#8c8a73;margin-top:2px}
+.gateway-feedback-form{margin:0 12px 12px;padding:11px;border:1px solid #2f768f;border-radius:6px;background:#061b28}
+.gateway-feedback-form[hidden]{display:none!important}
+.gateway-feedback-form-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}
+.gateway-feedback-form-head b{color:#e4f5fb;font-size:10px}.gateway-feedback-form-head span{color:#789ca9;font-size:7.5px;text-align:right}
+.gateway-feedback-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.gateway-feedback-form label{display:flex;flex-direction:column;gap:4px;color:#7ea8b8;font-size:7.5px;text-transform:uppercase}
+.gateway-feedback-form input,.gateway-feedback-form select,.gateway-feedback-form textarea{width:100%;box-sizing:border-box;border:1px solid #25566b;border-radius:4px;background:#041925;color:#d9edf5;padding:7px 8px;font:inherit;font-size:9px;text-transform:none;outline:none}
+.gateway-feedback-form input:focus,.gateway-feedback-form select:focus,.gateway-feedback-form textarea:focus{border-color:#4ba7c2}
+.gateway-feedback-form textarea{min-height:62px;resize:vertical}
+.gateway-feedback-wide{margin-top:8px}
+.gateway-feedback-actions{display:flex;align-items:center;gap:7px;margin-top:10px}
+.gateway-feedback-actions button{border:1px solid #2d7189;border-radius:4px;background:#093348;color:#d9f2fa;padding:7px 10px;font-size:8px;cursor:pointer}
+.gateway-feedback-actions button[type="submit"]{border-color:#259764;background:#073b30;color:#b8f1d3}
+.gateway-feedback-actions button:disabled{opacity:.5;cursor:wait}
+.gateway-feedback-status{color:#8bc5d8;font-size:8px;margin-left:4px}
+.gateway-technical-details{margin-top:8px;border:1px solid #163e50;border-radius:5px;background:#041b28}
+.gateway-technical-details>summary{cursor:pointer;padding:8px 10px;color:#7196a6;font-size:8px;list-style:none}
+.gateway-technical-details>summary::-webkit-details-marker{display:none}
+.gateway-technical-details[open]>summary{border-bottom:1px solid #163e50;color:#9bc7d8}
+.gateway-technical-details .gateway-event-reason{margin:8px}
+@media(max-width:1100px){.gateway-story-timeline{grid-template-columns:1fr}.gateway-story-timeline>div:last-child{grid-column:auto}.gateway-feedback-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gateway-story-head{align-items:flex-start;flex-direction:column}}
+
+
+/* ================================================================
+   TOI v1.10.6.3.7.5 R1.2.4 H2-B — Period-Aware Executive Cards
+   + UI Semantics + Future Radar Layout
+   ================================================================ */
+:root{--p34:#ff4fd8}
+/* Quatro blocos executivos legíveis na faixa superior. */
+.top-row{grid-template-columns:minmax(580px,2.10fr) minmax(260px,1fr) minmax(210px,.82fr) minmax(280px,1.08fr) !important;gap:10px !important}
+.health-body{grid-template-columns:120px minmax(220px,1fr) minmax(180px,250px) !important}
+.score-ring{width:82px!important;height:82px!important;border-width:10px!important}.score-ring strong{font-size:23px!important}
+.period-highlights-panel{height:100%;min-width:0;display:grid;grid-template-rows:29px minmax(0,1fr)}
+.period-highlights{overflow:hidden;padding:2px 0}
+.period-highlights .timeline-item{height:25px;grid-template-columns:28px 18px minmax(0,1fr) auto;gap:5px;padding:0 8px;font-size:8px}
+.period-highlights .timeline-time{font-size:7px}.period-highlights .timeline-value{font-size:8px;font-weight:600;white-space:nowrap}
+.period-highlights .timeline-item b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+/* O gráfico usa toda a largura até a entrada do futuro RADAR OPERACIONAL. */
+.middle-row{grid-template-columns:minmax(0,1fr) !important}
+.evolution-panel{width:100%!important}
+/* P34 tem identidade visual própria; P135 permanece vermelho. */
+.congestion-kpi-grid>div:first-child{border-left-color:var(--p34)!important}.congestion-kpi-grid>div:last-child{border-left-color:var(--red)!important}
+.congestion-kpi-grid .p34 strong{color:var(--p34)!important}.congestion-kpi-grid .p135 strong{color:var(--red)!important}
+.congestion-kpi-grid strong{font-size:21px!important;line-height:23px!important;letter-spacing:-.02em}
+.congestion-kpi-grid span{font-size:7.2px!important}.congestion-kpi-grid small{font-size:6.5px!important;line-height:1.25!important}
+.event-dot.magenta{background:var(--p34)}
+/* Cards longos priorizam a janela selecionada e deixam Agora na linha secundária. */
+.kpi.period-primary .value{font-size:22px;font-weight:600;margin-top:4px}
+.kpi .sub{white-space:normal!important;line-height:1.25!important;max-height:24px;overflow:hidden;text-overflow:clip!important}
+.kpi.period-primary .sub{font-size:7.3px!important;color:#8fa5b1}
+.kpi .label em{white-space:nowrap}
+/* Chip técnico de perfil não ocupa a visão principal; explicação permanece no tooltip do título. */
+.temporal-mode-label[hidden]{display:none!important}
+/* A régua horária usa fonte menor para acomodar 08:00–21:00 sem sobreposição. */
+.evolution-panel .chart-box{overflow:hidden}
+@media(max-width:1499px){
+  .top-row{grid-template-columns:minmax(520px,2.05fr) minmax(235px,1fr) minmax(190px,.82fr) minmax(245px,1.05fr)!important}
+  .health-body{grid-template-columns:105px minmax(205px,1fr) minmax(165px,225px)!important}
+  .period-highlights .timeline-item{font-size:7.5px}
+}
+
+
+/* ================================================================
+   TOI R1.2.4 H2-C — OPERATIONAL INTELLIGENCE HARDENING
+   ================================================================ */
+.actionable-pressure{cursor:pointer;transition:border-color .15s ease,background .15s ease}
+.actionable-pressure:hover{border-color:#2f708d;background:#092a3c}
+.operational-story-banner{margin:0 0 12px;padding:11px 13px;border-left:3px solid #26c27a;background:#073529;color:#d8efe5;font-size:12px;line-height:1.5;border-radius:3px}
+.parking-analogy{margin:12px 0;padding:14px;border:1px solid #29566d;background:#092637;border-radius:5px}
+.parking-analogy h4,.event-story h4,.pressure-drivers h4{margin:0 0 8px;color:#f0f7fa;font-size:12px}
+.parking-analogy p{margin:5px 0;color:#b8ccd6;line-height:1.55;font-size:11px}
+.parking-analogy b{color:#7fe2b0}
+.event-story{margin:12px 0;padding:13px;border:1px solid #24526a;background:#082332;border-radius:5px;color:#bcd0d9}
+.event-story-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.event-story-grid>div{padding:9px;background:#0a2b3d;border:1px solid #244b60;border-radius:4px}
+.event-story-grid b{color:#59c8ef}.event-story-grid p{margin:5px 0 0;font-size:10px;line-height:1.45}
+.semantic-note{margin:8px 0 0;color:#8fa8b5;font-size:10px;line-height:1.45}
+.generic-feedback-wrap{margin:14px 0 0;padding:11px;border:1px solid #254c61;border-radius:5px;background:#071f2d}
+.generic-feedback-open{border:1px solid #3281a0;background:#092b3e;color:#bce8f7;border-radius:4px;padding:7px 10px;cursor:pointer;font-weight:700}
+.operational-feedback-row{padding:7px 9px;margin:5px 0;background:#092737;border-left:2px solid #49a7cb;color:#b9ced8;font-size:10px;line-height:1.45}
+.pressure-driver-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.pressure-driver{padding:12px;border:1px solid #2a5266;background:#082333;border-radius:5px;display:grid;gap:4px}
+.pressure-driver span{color:#9cb2bd;font-size:10px}.pressure-driver b{font-size:20px;color:#e3f1f6}.pressure-driver small{color:#7f96a2}
+.pressure-driver.ok{border-left:3px solid #25bd6f}.pressure-driver.warn{border-left:3px solid #e9aa22}.pressure-driver.bad{border-left:3px solid #f05258}
+.telecom-pressure-body>strong{font-variant-numeric:tabular-nums}
+@media(max-width:1100px){.event-story-grid,.pressure-driver-grid{grid-template-columns:1fr}}
+
+/* ================================================================
+   TOI R1.2.4 H2-C1 — OPERATIONAL WINDOW + GATEWAY STORY + DECISION UX
+   ================================================================ */
+.analytics-chip.context{border-color:#27657c;color:#7ed4ef;background:#082b3b}
+.gateway-summary-card>summary{grid-template-columns:minmax(180px,.9fr) minmax(330px,2fr) minmax(150px,.85fr) minmax(130px,.75fr) minmax(170px,.95fr) minmax(120px,.7fr)!important;gap:9px!important;min-height:55px;padding:9px 12px!important}
+.gateway-summary-card>summary>span{min-width:0}
+.gateway-summary-story{display:flex;flex-direction:column;gap:3px}
+.gateway-summary-story b{color:#e5f2f6;font-size:9.5px;line-height:1.35;font-weight:600;white-space:normal}
+.gateway-summary-story small,.gateway-summary-card>summary span>small{display:block;color:#7896a4;font-size:7.5px;line-height:1.3;margin-top:3px}
+.gateway-summary-cov{color:#90a9b5;font-size:8.3px}.gateway-summary-cov b{display:block;color:#d7e8ef;font-size:11px;margin-top:2px}
+.gateway-summary-card .gateway-analysis-name{font-size:10.5px;color:#f1f7fa}
+.gateway-analysis-body{padding:12px}
+.gateway-loading{min-height:90px;display:flex;align-items:center;justify-content:center}
+.gateway-window-caption{margin:0 0 7px;color:#7f9aa7;font-size:8px;line-height:1.4}
+.gateway-peer-evidence{border-color:#2c667d!important;background:#08293a!important}
+.gateway-peer-evidence b{color:#dff5fb!important}
+.gateway-mini-timeline{padding:10px 12px 2px;background:#061b28}
+.gateway-mini-timeline.empty{padding:7px 12px 2px;color:#7795a3;font-size:8px}
+.gateway-mini-track{position:relative;height:16px;border:1px solid #244a5d;border-radius:9px;background:linear-gradient(90deg,#082333,#061924);overflow:hidden}
+.gateway-mini-track i{position:absolute;top:2px;height:10px;border-radius:6px;min-width:3px;opacity:.92}
+.gateway-mini-track i.absence{background:#f2b72f}.gateway-mini-track i.fault{background:#ef5b62}
+.gateway-mini-scale{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:4px;color:#688897;font-size:7px}
+.gateway-mini-scale b{color:#8fb0bd;font-size:7px;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+.gateway-story-unknown{grid-column:1/-1!important;border-color:#5b4c20!important;background:#1b190d!important}
+.gateway-story-unknown>p{color:#d8cfa8!important}
+.gateway-hypotheses{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.gateway-hypotheses span{color:#bba85e;font-size:7.5px;text-transform:uppercase;font-weight:700;margin-right:2px}
+.gateway-hypotheses i{font-style:normal;padding:3px 6px;border:1px solid #5a4d22;border-radius:10px;color:#d6ca93;background:#26200d;font-size:7.5px}
+.gateway-event-list{margin-top:9px;padding:9px 10px;border:1px solid #214c60;border-radius:5px;background:#061f2e}
+.gateway-event-list>b{display:block;margin-bottom:6px;color:#dcecf3;font-size:9px}
+.gateway-event-list>span{display:grid;grid-template-columns:150px 75px minmax(0,1fr);gap:8px;align-items:center;padding:5px 0;border-top:1px solid #153747;color:#9fb8c4;font-size:8px}
+.gateway-event-list>span:first-of-type{border-top:0}.gateway-event-list strong{color:#cfe2ea}.gateway-event-list i{font-style:normal;color:#f0bd4c}.gateway-event-list small{color:#7894a1}
+.gateway-event-list.empty{color:#718f9c;font-size:8px}
+.gateway-scope-explain{margin-top:0!important;margin-bottom:10px}
+.gateway-scope-explain p{font-size:9px!important}
+@media(max-width:1250px){.gateway-summary-card>summary{grid-template-columns:minmax(160px,.9fr) minmax(280px,1.7fr) minmax(140px,.8fr) minmax(120px,.7fr)!important}.gateway-summary-card>summary>span:nth-child(5),.gateway-summary-card>summary>span:nth-child(6){display:none}}
+@media(max-width:900px){.gateway-summary-card>summary{grid-template-columns:1fr!important}.gateway-summary-card>summary>span{display:block!important}.gateway-event-list>span{grid-template-columns:1fr}.gateway-analysis-body{padding:8px}}

@@ -1,0 +1,143 @@
+{
+  "version": "gateway_semantic_context_v1.2_balanced_confirmed",
+  "mode": "SHADOW_HUMAN_GROUND_TRUTH",
+  "generated_at": "2026-09-28",
+  "governance": {
+    "changes_machine_status": false,
+    "generates_alerts": false,
+    "changes_diagnosis": false,
+    "changes_recommendation": false,
+    "changes_ticket_or_action": false,
+    "purpose": "Separar comportamento estatístico de papel operacional, lifecycle e cobertura observacional.",
+    "filters_shadow_functional_alert_projection": true,
+    "machine_alerts_preserved": true,
+    "lifecycle_is_temporal": true,
+    "historical_ground_truth_preserved": true
+  },
+  "gateways": [
+    {
+      "instancia": "2",
+      "entity": "GWS792-DC1",
+      "operational_role": "BALANCED_GATEWAY",
+      "lifecycle_state": "IN_SERVICE",
+      "traffic_expectation": "BALANCED_TRAFFIC",
+      "coverage_level": "INFRA_PLUS_AVAILABLE_LASTCALLS",
+      "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_2026-09-28",
+      "evidence_confidence": "HIGH",
+      "note": "O gestor confirmou tráfego balanceado entre os gateways de cada instância. A única exceção confirmada é GWS843-DC1 da Instância 4, em standby. Balanceamento não implica igualdade exata a cada leitura.",
+      "lifecycle_history": [
+        {
+          "lifecycle_state": "IN_SERVICE",
+          "operational_role": "RECEPTIVE_GATEWAY",
+          "traffic_expectation": "RECEPTIVE_LOW_OR_VARIABLE",
+          "coverage_level": "PARTIAL_QUEUE_SCOPE",
+          "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_2026-09-03",
+          "note": "Há tráfego no Gateway, mas o TOI possui somente uma fila cadastrada na Instância 2; a atividade de filas não representa demanda global da Instância. Fluxo receptivo pode ter baixa visibilidade no escopo atual.",
+          "valid_from": "2026-09-03",
+          "valid_to": "2026-09-28",
+          "precision": "DAY"
+        }
+      ],
+      "effective_from": "2026-09-28",
+      "effective_from_precision": "DAY"
+    },
+    {
+      "instancia": "4",
+      "entity": "GWS843-DC1",
+      "operational_role": "STANDBY_GATEWAY",
+      "lifecycle_state": "IN_SERVICE_STANDBY",
+      "traffic_expectation": "SPORADIC_LAST_ROUTE",
+      "coverage_level": "INFRA_PLUS_AVAILABLE_LASTCALLS",
+      "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_2026-09-28",
+      "evidence_confidence": "HIGH",
+      "note": "Standby confirmado pelo gestor em 28/09/2026. Excluir da comparação de balanceamento e de baixa ocupação funcional; manter observabilidade técnica.",
+      "lifecycle_history": [
+        {
+          "lifecycle_state": "IN_SERVICE_STANDBY",
+          "operational_role": "SBC_LAST_ROUTE",
+          "traffic_expectation": "SPORADIC_LAST_ROUTE",
+          "coverage_level": "INFRA_PLUS_AVAILABLE_LASTCALLS",
+          "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_2026-09-03",
+          "note": "Funciona como SBC e fica por último na rota. Ocupação zero ou baixa pode ser comportamento esperado; quando acionado pode apresentar ocupação relevante.",
+          "valid_from": "2026-09-03",
+          "valid_to": "2026-09-28",
+          "precision": "DAY"
+        }
+      ],
+      "effective_from": "2026-09-28",
+      "effective_from_precision": "DAY"
+    },
+    {
+      "instancia": "4",
+      "entity": "GWS955-DC1",
+      "operational_role": "BALANCED_GATEWAY",
+      "lifecycle_state": "IN_SERVICE",
+      "traffic_expectation": "BALANCED_TRAFFIC",
+      "coverage_level": "INFRA_PLUS_AVAILABLE_LASTCALLS",
+      "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_2026-09-28",
+      "evidence_confidence": "HIGH",
+      "note": "O gestor confirmou tráfego balanceado entre os gateways de cada instância. A única exceção confirmada é GWS843-DC1 da Instância 4, em standby. Balanceamento não implica igualdade exata a cada leitura.",
+      "lifecycle_history": [
+        {
+          "valid_from": "2026-09-03",
+          "valid_to": "2026-09-04",
+          "precision": "DAY",
+          "lifecycle_state": "FAULT_CONFIRMED",
+          "canonical_status": "FAULT_CONFIRMED_CONTEXT",
+          "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_2026-09-03",
+          "note": "Falha operacional confirmada no período; Gateway reportado travado e sem chamadas."
+        },
+        {
+          "lifecycle_state": "RECOVERED_CONFIRMED",
+          "operational_role": "STANDARD_GATEWAY_ROLE_UNSPECIFIED",
+          "traffic_expectation": "TRAFFIC_RESTORED",
+          "coverage_level": "INFRA_PLUS_AVAILABLE_LASTCALLS",
+          "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_RECUPERACAO_2026-09-05",
+          "note": "Gateway voltou a apresentar ocupação relevante em 04/09 e a operação confirmou que voltou a ficar operacional. Preservar a falha confirmada anterior como histórico temporal, sem mantê-la como estado atual eterno.",
+          "valid_from": "2026-09-04",
+          "valid_to": "2026-09-28",
+          "precision": "DAY"
+        }
+      ],
+      "effective_from": "2026-09-28",
+      "effective_from_precision": "DAY"
+    },
+    {
+      "instancia": "5",
+      "entity": "GWS834-DC1",
+      "operational_role": "BALANCED_GATEWAY",
+      "lifecycle_state": "IN_SERVICE",
+      "traffic_expectation": "BALANCED_TRAFFIC",
+      "coverage_level": "INFRA_PLUS_AVAILABLE_LASTCALLS",
+      "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_2026-09-28",
+      "evidence_confidence": "HIGH",
+      "note": "O gestor confirmou tráfego balanceado entre os gateways de cada instância. A única exceção confirmada é GWS843-DC1 da Instância 4, em standby. Balanceamento não implica igualdade exata a cada leitura.",
+      "lifecycle_history": [
+        {
+          "lifecycle_state": "VENDOR_CONFIGURATION",
+          "operational_role": "FUTURE_SBC",
+          "traffic_expectation": "NO_TRAFFIC_PLANNED",
+          "coverage_level": "INFRA_PLUS_AVAILABLE_LASTCALLS",
+          "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_2026-09-03",
+          "note": "Gateway parado e com o fornecedor ORBE para configuração futura como SBC. Ausência de tráfego é planejada e não deve ser tratada como falha funcional automática.",
+          "valid_from": "2026-09-03",
+          "valid_to": "2026-09-28",
+          "precision": "DAY"
+        }
+      ],
+      "effective_from": "2026-09-28",
+      "effective_from_precision": "DAY"
+    }
+  ],
+  "balanced_traffic_policy": {
+    "operational_role": "BALANCED_GATEWAY",
+    "lifecycle_state": "IN_SERVICE",
+    "traffic_expectation": "BALANCED_TRAFFIC",
+    "coverage_level": "INFRA_PLUS_AVAILABLE_LASTCALLS",
+    "evidence_source": "GESTOR_OPERACIONAL_CONFIRMADO_2026-09-28",
+    "evidence_confidence": "HIGH",
+    "effective_from": "2026-09-28",
+    "effective_from_precision": "DAY",
+    "note": "O gestor confirmou tráfego balanceado entre os gateways de cada instância. A única exceção confirmada é GWS843-DC1 da Instância 4, em standby. Balanceamento não implica igualdade exata a cada leitura."
+  }
+}

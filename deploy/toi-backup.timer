@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily TOI data backup at 02:30
+
+[Timer]
+OnCalendar=*-*-* 02:30:00
+Persistent=true
+Unit=toi-backup.service
+
+[Install]
+WantedBy=timers.target

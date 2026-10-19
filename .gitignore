@@ -1,0 +1,24 @@
+.venv/
+.env
+.browsers/
+.incoming/
+.releases/
+private/
+dados/
+dados_toi/
+logs/
+relatorios/
+__pycache__/
+*.pyc
+*.sqlite
+*.sqlite-*
+*.jsonl
+*.xlsx
+*.xls
+*.partial
+TOI_v1.10.6_DUAL_LANE_ML_SHADOW/runtime/
+TOI_v1.10.6_DUAL_LANE_ML_SHADOW/homologacao/
+TOI_v1.10.6_DUAL_LANE_ML_SHADOW/static/*_latest.json
+
+# demo local
+docs/*.tmp

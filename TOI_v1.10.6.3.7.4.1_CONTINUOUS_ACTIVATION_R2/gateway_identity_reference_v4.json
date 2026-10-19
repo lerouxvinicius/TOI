@@ -1,0 +1,121 @@
+{
+  "version": "gateway_identity_reference_v4",
+  "purpose": "IP/identity hints only. Active membership is discovered from Portal gatewayList LIVE; names are canonicalized with trim+uppercase.",
+  "source_note": "Documentação_Acme_discadores(5).xlsx corrigida + Portal LIVE validado em 02/09/2026. LIVE determina membership presente; referência fornece identidade/IP e contexto.",
+  "gateways": {
+    "APP777-DC1": {
+      "ip": "10.90.10.107",
+      "reference_instance": "1"
+    },
+    "APP778-DC1": {
+      "ip": "10.90.10.108",
+      "reference_instance": "1"
+    },
+    "APP779-DC1": {
+      "ip": "10.90.10.109",
+      "reference_instance": "1"
+    },
+    "GWS791-DC1": {
+      "ip": "10.90.10.113",
+      "reference_instance": "4"
+    },
+    "GWS792-DC1": {
+      "ip": "10.90.10.114",
+      "reference_instance": "2"
+    },
+    "APP839-DC1": {
+      "ip": "10.90.10.153",
+      "reference_instance": "4"
+    },
+    "GWS843-DC1": {
+      "ip": "10.90.10.155",
+      "reference_instance": "4"
+    },
+    "GWS844-DC1": {
+      "ip": "10.90.10.156",
+      "reference_instance": "4"
+    },
+    "GWS845-DC1": {
+      "ip": "10.90.10.157",
+      "reference_instance": "4"
+    },
+    "GWS826-DC1": {
+      "ip": "10.90.10.143",
+      "reference_instance": "5"
+    },
+    "GWS827-DC1": {
+      "ip": "10.90.10.144",
+      "reference_instance": "5"
+    },
+    "GWS831-DC1": {
+      "ip": "10.90.10.148",
+      "reference_instance": "5"
+    },
+    "GWS832-DC1": {
+      "ip": "10.90.10.149",
+      "reference_instance": "5"
+    },
+    "GWS833-DC1": {
+      "ip": "10.90.10.150",
+      "reference_instance": "5"
+    },
+    "GWS834-DC1": {
+      "ip": "10.90.10.151",
+      "reference_instance": "5"
+    },
+    "APP817-DC1": {
+      "ip": "10.90.10.135",
+      "reference_instance": "6"
+    },
+    "GWS803-DC1": {
+      "ip": "10.90.10.125",
+      "reference_instance": "6",
+      "aliases": [
+        "GW803-DC1"
+      ]
+    },
+    "GWS841-DC1": {
+      "ip": "10.90.10.154",
+      "reference_instance": "6"
+    },
+    "GWS793-DC1": {
+      "ip": "10.90.10.115",
+      "reference_instance": "6"
+    },
+    "GWS928-CLD": {
+      "ip": "10.90.10.99",
+      "reference_instance": "6"
+    },
+    "GWS927-CLD": {
+      "ip": "10.90.10.97",
+      "reference_instance": "6"
+    },
+    "GWS93-DC1": {
+      "ip": "10.90.10.93",
+      "reference_instance": "6"
+    },
+    "GWS94-DC1": {
+      "ip": "10.90.10.94",
+      "reference_instance": "6"
+    },
+    "GWS304-DC1": {
+      "ip": "10.90.10.140",
+      "reference_instance": "6"
+    },
+    "GWS954-DC1": {
+      "ip": "10.90.10.179",
+      "reference_instance": "4",
+      "note": "IP confirmado; membership continua vindo do Portal LIVE."
+    },
+    "GWS955-DC1": {
+      "ip": "10.90.10.180",
+      "reference_instance": "4",
+      "note": "IP confirmado; membership continua vindo do Portal LIVE."
+    }
+  },
+  "canonicalization": {
+    "trim_whitespace": true,
+    "uppercase": true,
+    "non_alnum_match_normalization": true
+  }
+}

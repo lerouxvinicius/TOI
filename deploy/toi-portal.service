@@ -1,0 +1,23 @@
+[Unit]
+Description=TOI Portal Orbe and Radar source
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=toi
+Group=toi
+WorkingDirectory=/var/www/toi
+EnvironmentFile=/var/www/toi/private/toi.env
+ExecStart=/var/www/toi/.venv/bin/python -u /var/www/toi/monitor_portal_orbe_v1_gerencial.py
+Restart=on-failure
+RestartSec=15
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/toi/dados /var/www/toi/dados_toi /var/www/toi/logs /var/www/toi/relatorios
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

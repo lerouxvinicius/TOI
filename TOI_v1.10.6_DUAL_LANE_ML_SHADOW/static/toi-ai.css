@@ -1,0 +1,26 @@
+.toi-ai-open{border:1px solid #477c8b;background:#0b3443;color:#e7f9ff;border-radius:8px;padding:9px 13px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;margin-right:12px}
+.toi-ai-open:hover{background:#145467}
+.toi-ai-dialog{position:fixed;inset:0 0 0 auto;margin:0;width:min(560px,100vw);height:100vh;max-height:100vh;box-sizing:border-box;border:0;border-left:1px solid #346177;background:#071e2b;color:#e9f7fc;padding:0;box-shadow:-12px 0 45px #0008}
+.toi-ai-dialog::backdrop{background:#00151eba}
+.toi-ai-dialog[open]{display:flex;flex-direction:column}
+.toi-ai-dialog>header{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #245066;padding:19px 22px;background:#0b2c3b}
+.toi-ai-dialog>header small{font-size:10px;letter-spacing:.13em;color:#8bd8e9}
+.toi-ai-dialog>header h2{margin:3px 0 0;font-size:20px}
+.toi-ai-dialog>header button{border:0;background:transparent;color:#dcecf2;font-size:28px;cursor:pointer}
+.toi-ai-messages{flex:1;overflow:auto;padding:20px 22px;display:flex;flex-direction:column;gap:15px}
+.toi-ai-intro{color:#b8cfda;line-height:1.5;margin:0}
+.toi-ai-entry{border:1px solid #255167;border-radius:10px;padding:12px 14px;max-width:94%;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;font-size:13px}
+.toi-ai-entry.user{align-self:flex-end;background:#174b60}
+.toi-ai-entry.assistant{align-self:flex-start;background:#0d3444}
+.toi-ai-entry small{display:block;margin-top:10px;color:#a0c3d0;font-size:11px}
+.toi-ai-evidence{margin-top:10px;border-top:1px solid #285568;padding-top:8px;color:#a0c3d0;font-size:11px}
+.toi-ai-evidence summary{cursor:pointer;width:max-content}
+.toi-ai-evidence small{line-height:1.5}
+.toi-ai-dialog form{padding:16px 22px 22px;border-top:1px solid #245066;background:#0b2c3b}
+.toi-ai-dialog form label{display:block;font-size:12px;margin-bottom:8px;color:#c9e4ee}
+.toi-ai-dialog textarea{box-sizing:border-box;width:100%;resize:vertical;min-height:75px;max-height:150px;border:1px solid #44758a;border-radius:8px;padding:11px;background:#051d29;color:#f4fbff;font-family:inherit;font-size:13px}
+.toi-ai-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px}
+.toi-ai-actions small{color:#9ab5c1;font-size:10px}
+.toi-ai-actions button{border:0;border-radius:7px;background:#62cfde;color:#062532;font-weight:700;padding:9px 17px;cursor:pointer}
+.toi-ai-actions button:disabled{opacity:.5;cursor:wait}
+@media(max-width:600px){.toi-ai-dialog{width:100vw}.toi-ai-open{font-size:11px;padding:7px 9px}}

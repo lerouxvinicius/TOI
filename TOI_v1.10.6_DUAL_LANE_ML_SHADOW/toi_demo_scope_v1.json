@@ -1,0 +1,161 @@
+{
+  "schema": "toi_demo_scope_v1",
+  "generated_for": "Demo 01/09/2026 14:00",
+  "notes": [
+    "Escopo híbrido: Pareto histórico + casos do cliente + controles.",
+    "Todas as Instâncias 1,2,4,5,6 ficam representadas.",
+    "Discador habilitado para todas as filas do escopo em background; Last Calls permanece seletivo para controlar carga."
+  ],
+  "queues": [
+    {
+      "instancia": "6",
+      "projeto_id": "2558",
+      "codigo": "0255800015",
+      "nome": "Negociador_Virtual_API_V4_31_60_Disc",
+      "motivo_prioridade": "operacao_tempo_real",
+      "full_detail": false,
+      "dialer_detail": false,
+      "lastcalls_detail": false
+    },
+    {
+      "instancia": "6",
+      "projeto_id": "2558",
+      "codigo": "0255800003",
+      "nome": "Negociador_Virtual_API_V2_31_60_Disc",
+      "motivo_prioridade": "pareto_p135_extremo",
+      "full_detail": true,
+      "dialer_detail": true,
+      "lastcalls_detail": true
+    },
+    {
+      "instancia": "4",
+      "projeto_id": "2527",
+      "codigo": "0252700002",
+      "nome": "ALFA_COB_EXPRESS_01",
+      "motivo_prioridade": "pareto_p135_recorrente",
+      "full_detail": true,
+      "dialer_detail": true,
+      "lastcalls_detail": true
+    },
+    {
+      "instancia": "4",
+      "projeto_id": "2497",
+      "codigo": "0249700009",
+      "nome": "ALFA_COB_2",
+      "motivo_prioridade": "pareto_p135+incidente_cliente_591142",
+      "full_detail": true,
+      "dialer_detail": true,
+      "lastcalls_detail": true
+    },
+    {
+      "instancia": "4",
+      "projeto_id": "2497",
+      "codigo": "0249700010",
+      "nome": "ALFA_COB_3",
+      "motivo_prioridade": "pareto_p135+incidente_cliente_591142",
+      "full_detail": true,
+      "dialer_detail": true,
+      "lastcalls_detail": true
+    },
+    {
+      "instancia": "4",
+      "projeto_id": "2497",
+      "codigo": "0249700007",
+      "nome": "ALFA_COB_1",
+      "motivo_prioridade": "p135_fragmentado_recorrente",
+      "full_detail": true,
+      "dialer_detail": true,
+      "lastcalls_detail": true
+    },
+    {
+      "instancia": "5",
+      "projeto_id": "2474",
+      "codigo": "0247400047",
+      "nome": "DISC_LOCALIZADOR_VIRTUAL_05_2026_2",
+      "motivo_prioridade": "pareto_p34",
+      "full_detail": true,
+      "dialer_detail": true,
+      "lastcalls_detail": true
+    },
+    {
+      "instancia": "5",
+      "projeto_id": "2474",
+      "codigo": "0247400046",
+      "nome": "DISC_LOCALIZADOR_VIRTUAL_05_2026",
+      "motivo_prioridade": "pareto_p34",
+      "full_detail": false,
+      "dialer_detail": true,
+      "lastcalls_detail": false
+    },
+    {
+      "instancia": "5",
+      "projeto_id": "2474",
+      "codigo": "0247400045",
+      "nome": "DISC_LOCALIZADOR_VIRTUAL_INB",
+      "motivo_prioridade": "pareto_p34",
+      "full_detail": false,
+      "dialer_detail": true,
+      "lastcalls_detail": false
+    },
+    {
+      "instancia": "5",
+      "projeto_id": "2473",
+      "codigo": "0247300004",
+      "nome": "Atendimento Utilix",
+      "motivo_prioridade": "p135_severo_historico",
+      "full_detail": false,
+      "dialer_detail": true,
+      "lastcalls_detail": false
+    },
+    {
+      "instancia": "1",
+      "projeto_id": "2555",
+      "codigo": "0255500002",
+      "nome": "ALFA_MIGRACAO_01",
+      "motivo_prioridade": "p135_severo_historico",
+      "full_detail": true,
+      "dialer_detail": true,
+      "lastcalls_detail": true
+    },
+    {
+      "instancia": "1",
+      "projeto_id": "2555",
+      "codigo": "0255500004",
+      "nome": "ALFA_MIGRACAO_02",
+      "motivo_prioridade": "p135_extremo_transitorio",
+      "full_detail": false,
+      "dialer_detail": true,
+      "lastcalls_detail": false
+    },
+    {
+      "instancia": "4",
+      "projeto_id": "2497",
+      "codigo": "0249700014",
+      "nome": "ALFA_COB_4",
+      "motivo_prioridade": "controle_saudavel_mesmo_projeto_ALFA_COB",
+      "full_detail": false,
+      "dialer_detail": true,
+      "lastcalls_detail": false
+    },
+    {
+      "instancia": "1",
+      "projeto_id": "2472",
+      "codigo": "0247200013",
+      "nome": "BRONZE",
+      "motivo_prioridade": "controle_saudavel_inst1_com_trafego_p34_p135_baixo",
+      "full_detail": false,
+      "dialer_detail": true,
+      "lastcalls_detail": false
+    },
+    {
+      "instancia": "2",
+      "projeto_id": "2491",
+      "codigo": "0249100001",
+      "nome": "Discagem Manual",
+      "motivo_prioridade": "representante_inst2_p34_extremo_baixo_volume",
+      "full_detail": true,
+      "dialer_detail": true,
+      "lastcalls_detail": true
+    }
+  ]
+}

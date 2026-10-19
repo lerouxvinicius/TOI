@@ -1,0 +1,58 @@
+{
+  "version": "toi_operational_knowledge_cases_v1",
+  "mode": "SHADOW_CASE_BASED_REASONING",
+  "generated_at": "2026-09-05",
+  "governance": {
+    "changes_diagnosis": false,
+    "generates_alerts": false,
+    "executes_actions": false,
+    "causality_required_for_automatic_action": true,
+    "purpose": "Preservar precedentes operacionais estruturados para interpretação futura/ML Shadow sem converter correlação em causalidade."
+  },
+  "cases": [
+    {
+      "case_id": "GW_INST4_V00844_20260904_FUNCTIONAL_SILENCE_DS_RESTART",
+      "instancia": "4",
+      "entity": "GWS844-DC1",
+      "case_type": "LOCALIZED_FUNCTIONAL_SILENCE_WITH_REACHABILITY",
+      "observed_date": "2026-09-04",
+      "event_time_precision": "APPROXIMATE",
+      "observations": {
+        "functional_silence_min_reported": 72.0,
+        "occupancy_during_pct": 0.0,
+        "peer_occupancy_context": "Peers comparáveis da Instância aproximadamente na faixa de 60% no momento reportado.",
+        "reachability": "PRESERVED_ICMP_OK",
+        "baseline": "ACTIVE_RECURRENT",
+        "recovery_observed_approx": "20:25",
+        "detection_reported_at": "20:01",
+        "observed_start_approx": "18:49",
+        "observed_start_derivation": "Aproximado a partir do relato de 72 min sem ocupação às 20:01; não é timestamp físico comprovado."
+      },
+      "human_intervention": {
+        "type": "DS_SERVICE_RESTART_REPORTED",
+        "reported_at": "20:31",
+        "note": "Gestor informou: Reiniciei o serviço DS."
+      },
+      "causality_status": "TEMPORALLY_ASSOCIATED_NOT_PROVEN",
+      "interpretation_template": "Anomalia funcional localizada com reachability preservada; comportamento divergente dos pares. Verificar serviço DS/processo associado ao Gateway antes de atribuir o evento a baixa demanda.",
+      "recommended_checks": [
+        "serviço DS/processo associado",
+        "Last Calls",
+        "ocupação dos pares",
+        "path/reachability",
+        "Ground Truth"
+      ],
+      "action_policy": "Reinício do serviço DS pode ser citado apenas como precedente e somente conforme autorização/runbook; nunca executar automaticamente pelo TOI.",
+      "ml_features": [
+        "baseline_deviation",
+        "functional_silence",
+        "peer_divergence",
+        "peer_active_ratio",
+        "reachability_preserved",
+        "path_fleet_context",
+        "recovery_after_reported_intervention"
+      ],
+      "operational_story_note": "Às 20:01 foi reportado que o Gateway estava sem ocupação havia cerca de 72 min enquanto pares permaneciam ocupados. A recuperação foi percebida por volta de 20:25. Às 20:31 o gestor informou que reiniciou o serviço DS. A associação temporal é preservada, sem causalidade automática."
+    }
+  ]
+}

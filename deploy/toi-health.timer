@@ -1,0 +1,10 @@
+[Unit]
+Description=Refresh TOI system health every two minutes
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=2min
+Unit=toi-health.service
+
+[Install]
+WantedBy=timers.target

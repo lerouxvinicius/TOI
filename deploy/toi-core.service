@@ -1,0 +1,24 @@
+[Unit]
+Description=TOI core supervisor (collector, dashboard and ML after validation)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=toi
+Group=toi
+WorkingDirectory=/var/www/toi/TOI_v1.10.6_DUAL_LANE_ML_SHADOW
+EnvironmentFile=/var/www/toi/private/toi.env
+ExecStart=/var/www/toi/.venv/bin/python -u /var/www/toi/TOI_v1.10.6_DUAL_LANE_ML_SHADOW/toi_supervisor_v1_10_6.py --config /var/www/toi/TOI_v1.10.6_DUAL_LANE_ML_SHADOW/toi_demo_scope_v1.json --db /var/www/toi/dados_toi/live/toi_live.sqlite --port 8088
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/toi/dados /var/www/toi/dados_toi /var/www/toi/logs /var/www/toi/relatorios /var/www/toi/TOI_v1.10.6_DUAL_LANE_ML_SHADOW/runtime /var/www/toi/TOI_v1.10.6_DUAL_LANE_ML_SHADOW/homologacao /var/www/toi/TOI_v1.10.6_DUAL_LANE_ML_SHADOW/static
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

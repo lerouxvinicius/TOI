@@ -1,0 +1,25 @@
+[Unit]
+Description=TOI Gateway Intelligence Shadow
+After=toi-core.service
+Requires=toi-core.service
+
+[Service]
+Type=simple
+User=toi
+Group=toi
+WorkingDirectory=/var/www/toi
+EnvironmentFile=/var/www/toi/private/toi.env
+ExecStart=/var/www/toi/.venv/bin/python -u /var/www/toi/TOI_v1.10.6.3.7.4.1_CONTINUOUS_ACTIVATION_R2/tools_readonly/toi_gateway_intelligence_shadow_v0_2_4_1_r2_1.py
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+AmbientCapabilities=CAP_NET_RAW
+CapabilityBoundingSet=CAP_NET_RAW
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/toi/dados_toi /var/www/toi/logs /var/www/toi/TOI_v1.10.6_DUAL_LANE_ML_SHADOW/static
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

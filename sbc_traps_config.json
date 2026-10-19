@@ -1,0 +1,12 @@
+{
+  "members": {
+    "10.90.11.132": {"sysname": "SBC112-DC2", "pair": "SBCs NORTE", "peer_ip": "10.90.11.133", "source_ips": ["10.90.11.132"]},
+    "10.90.11.133": {"sysname": "SBC113-DC2", "pair": "SBCs NORTE", "peer_ip": "10.90.11.132", "source_ips": ["10.90.11.133"]},
+    "10.90.13.10": {"sysname": "SBCSUL001.SBCSUL", "pair": "SBCs SUL", "peer_ip": "10.90.13.11", "source_ips": ["10.90.13.10"]},
+    "10.90.13.11": {"sysname": "SBCSUL002.SBCSUL", "pair": "SBCs SUL", "peer_ip": "10.90.13.10", "source_ips": ["10.90.13.11"]}
+  },
+  "peer_timed_out": {
+    "active": {"trap_oids": [], "varbind_equals": {}, "peer_varbind_oid": ""},
+    "clear": {"trap_oids": [], "varbind_equals": {}, "peer_varbind_oid": ""}
+  }
+}

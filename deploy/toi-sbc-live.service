@@ -1,0 +1,23 @@
+[Unit]
+Description=TOI independent live SBC collection
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=toi
+Group=toi
+WorkingDirectory=/var/www/toi
+EnvironmentFile=/var/www/toi/private/toi.env
+ExecStart=/var/www/toi/.venv/bin/python -u -m mgw.sbc_live
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/toi/dados
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

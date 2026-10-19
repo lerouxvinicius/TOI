@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 30" role="img" aria-label="TOI">
+  <path d="M2 15h22l6-11 8 22 7-17 5 6h10" fill="none" stroke="#1bb5dd" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="64" cy="15" r="3.5" fill="#1bb5dd"/>
+  <path d="M74 9a9 9 0 0 1 0 12M80 5a15 15 0 0 1 0 20" fill="none" stroke="#1bb5dd" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+  <text x="92" y="20" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="1.5" fill="#f0f5f7">NOC VIEW</text>
+</svg>
