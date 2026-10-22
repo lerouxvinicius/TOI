@@ -8,7 +8,49 @@ Projeto desenvolvido e operado por mim, de ponta a ponta: coleta, banco, painel,
 
 > Todos os nomes de empresas, clientes, operadoras, hostnames, IPs e filas deste repositório são **fictícios**, e as métricas de ML vêm de dados **sintéticos** reproduzíveis.
 
-![Painel — visão geral](docs/visao-geral.png)
+![Painel — visão geral, com o Radar Operacional à direita](docs/visao-geral.png)
+
+## Destaques de operação
+
+### Radar Operacional
+
+Um único painel com **todos os incidentes ativos de todas as instâncias**: filas do discador (Portal), gateways, Agiroute e MGW/SBC. Ele roda num processo próprio a cada 5 segundos, independente de alguém estar com o painel aberto, e grava num banco separado, sem tocar na coleta.
+
+- Cada incidente tem um ciclo de vida explícito: **condição observada → confirmação → incidente ativo → normalização confirmada**. Oscilações curtas não viram alarme.
+- O alarme abre um aviso na tela, com som opcional, até alguém registrar **ciência**. A ciência e a normalização ficam gravadas como eventos do incidente, com horário.
+- Visões **"Agora · global"** e **"No período"**, com histórico, contagem de recorrências e o estado de envio de cada alarme ao Telegram.
+
+<p>
+  <img src="docs/radar-painel.png" width="34%" alt="Painel do Radar Operacional com um incidente ativo">
+  <img src="docs/radar-alarme.png" width="54%" alt="Alarme de baixa ocupação aberto no Radar">
+</p>
+
+### Alarmes de baixa ocupação dos gateways
+
+Numa instância em que o tráfego deveria ser balanceado, o TOI compara cada gateway com os pares e abre um alarme quando alguns ficam ociosos enquanto o resto está saturado. É capacidade parada enquanto as filas congestionam.
+
+- **Regra explicável:** o gateway fica com no máximo 25% de ocupação e menos de 35% da mediana dos pares, pelo menos 40 p.p. abaixo dela, com a mediana em 80% ou mais e pelo menos metade dos gateways sob alta carga.
+- **Contexto antes do alarme:** gateways em standby, rota de reserva ou receptivo ficam fora da comparação, conforme o papel confirmado pela operação.
+- **Aprende o normal:** guarda um perfil de ocupação por gateway e faixa horária, maduro após 30 leituras em 3 dias, e passa a separar "queda em relação ao habitual" de "baixa habitual".
+- **Confirma e acompanha:** o alarme abre após 3 minutos contínuos e 6 amostras, e só normaliza após 5 minutos de recuperação, registrando o P135 das filas antes e depois.
+- **Não inventa causa:** cruza com as filas congestionadas (P135 ≥ 20%), as rotas observadas nas últimas chamadas e as respostas SIP 5xx, mas apresenta isso como coincidência e evidência, nunca como causa comprovada. Cada alarme vem com os passos de investigação.
+- Também há alarmes de **gateway sem resposta ICMP** e de **gateway sem ocupação** com expectativa de tráfego, os dois confirmados por 10 minutos.
+
+![Gateways da Instância 6: dois com baixa ocupação enquanto os pares passam de 85%](docs/gateways-baixa-ocupacao.png)
+
+### Alarmes no Telegram
+
+Os alarmes de gateway confirmados vão para um grupo no Telegram, com instância, gateways afetados, mediana dos pares, filas congestionadas, passos de investigação e o link para o TOI.
+
+- **Saída transacional (outbox) no SQLite:** cada incidente gera no máximo uma mensagem de abertura e uma de normalização, mesmo com reinícios.
+- **Sem mensagem duplicada:** se a resposta do Telegram se perde, o envio fica como "não confirmado" e não é repetido às cegas.
+- **Respeita o Telegram:** usa o `retry_after` do erro 429, tenta de novo em falhas 5xx e não reenvia o histórico ao ligar o bot.
+- **Só envia evidência fresca:** se a condição terminar antes do envio, a mensagem é cancelada.
+- O token e o chat ficam em variáveis de ambiente, fora do repositório.
+
+<img src="docs/telegram-alarme.png" width="60%" alt="Alarme de baixa ocupação no Telegram">
+
+<sub>O texto da mensagem é o gerado pelo TOI para o alarme da demonstração (`RadarService.gateway_telegram_text`). Só o layout do chat foi reproduzido, porque a demo não envia mensagens.</sub>
 
 ## Destaques de engenharia de ML
 
@@ -42,7 +84,7 @@ O baseline explicável já supera a regra com folga. O GBM ganha pouco, e esse g
 - **Infraestrutura**: ocupação de gateways e grupos de troncos, canais travados, inventário de SIP servers e sessões por realm nos SBCs (SNMP e ACLI, somente leitura).
 - **Linha do tempo sincronizada**: todas as métricas no mesmo eixo, com eventos e zoom.
 - **Inteligência**: diagnóstico automático, correlações, padrões e recorrências, análise de capacidade e recomendações.
-- **Alertas**: confirmação de incidentes com janela de normalização, Telegram, receptor de traps SNMP e abertura de chamados no Redmine.
+- **Radar e alertas**: Radar Operacional global, alarmes de baixa ocupação e de indisponibilidade de gateways, confirmação de incidentes com janela de normalização, Telegram, receptor de traps SNMP e abertura de chamados no Redmine.
 - **Assistente local**: perguntas em linguagem natural sobre os dados, respondidas por um LLM local (Ollama).
 - **Acesso**: Argon2id, papéis (Administrador, Gestor, Operador, Consulta), CSRF e trilha de auditoria.
 
@@ -113,6 +155,8 @@ pip install -r requirements.txt
 | Testes: os 56 testes do projeto | `python -m unittest discover -s tests -p "test_*.py"` |
 | Painel com dados fictícios. Abra http://127.0.0.1:8099/toi/login com o usuário `demo` (a senha está em [`demo/seed_demo.py`](demo/seed_demo.py)) e use `Ctrl+C` para parar | `python demo/run_demo.py` |
 
+Na demo, a Instância 6 simula dois gateways com baixa ocupação. Cerca de 3 minutos depois de abrir o painel, o Radar confirma o alarme, desde que o relógio esteja na janela operacional (padrão: 8h às 21h).
+
 Se o prompt já mostra `(.venv)`, o ambiente está ativo. Ao abrir um terminal novo, entre na pasta `TOI` e rode de novo só a linha de ativação.
 
 ## Estrutura
@@ -141,6 +185,12 @@ As credenciais ficam fora do repositório, num arquivo de ambiente lido pelas un
 <summary><b>English summary</b></summary>
 
 **TOI** is an observability platform for contact-center/telecom operations, built and run end to end by me. It samples dialer queues, gateways, SIP trunks and SBCs every 10 s into SQLite, and serves a real-time dashboard with diagnosis and alerting.
+
+Operations highlights:
+
+- **Operational Radar.** A global view of every active incident (dialer queues, gateways, Agiroute, MGW/SBC) with explicit confirmation and normalization windows, on-screen alarms and acknowledgement tracking.
+- **Low gateway occupancy alarms.** Each gateway is compared with its peers; idle gateways next to saturated ones open an explainable alarm, with learned hourly baselines, role-aware exclusions and investigation steps, never claiming a proven root cause.
+- **Telegram alerts.** A transactional SQLite outbox sends at most one open and one normalization message per incident, never blindly resends after an ambiguous response, and honours Telegram rate limits.
 
 ML engineering highlights:
 

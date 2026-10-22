@@ -33,6 +33,14 @@ DEFAULT_DB = ROOT / "dados_toi" / "live" / "toi_demo.sqlite"
 STEP_S = 60
 FOLLOW_S = 10
 
+# Cenário fictício para o Radar Operacional: na Instância 6, dois gateways ficam com
+# baixa ocupação enquanto os pares estão acima de 80% e uma fila congestiona (P135).
+# O Radar detecta, confirma após 3 min e abre o alarme de baixa ocupação, como em produção.
+SCENARIO_INSTANCE = "6"
+SCENARIO_LOW_GATEWAYS = {"GWS927-CLD", "GWS928-CLD"}
+SCENARIO_QUEUE = "0255800015"
+SCENARIO_HISTORY = timedelta(minutes=30)
+
 
 def load_queues():
     scope = json.loads((APP / "toi_demo_scope_v1.json").read_text(encoding="utf-8"))
@@ -58,7 +66,7 @@ def daily_wave(ts: datetime) -> float:
     return 0.15 + 0.85 * max(0.0, math.sin(math.pi * (hour - 8) / 13)) if 8 <= hour <= 21 else 0.15
 
 
-def queue_row(q, ts: datetime, rng: random.Random):
+def queue_row(q, ts: datetime, rng: random.Random, scenario: bool = False):
     load = daily_wave(ts) * rng.uniform(0.8, 1.2)
     agents = max(1, int(40 * load * rng.uniform(0.6, 1.4)))
     talking = int(agents * rng.uniform(0.4, 0.8))
@@ -68,6 +76,8 @@ def queue_row(q, ts: datetime, rng: random.Random):
     calls = int(talking * rng.uniform(2.5, 4.5))
     p34 = round(min(35.0, max(0.0, rng.gauss(4, 3) * (2.5 if rng.random() < 0.04 else 1))), 2)
     p135 = round(min(20.0, max(0.0, rng.gauss(2, 1.5))), 2)
+    if scenario and q["instancia"] == SCENARIO_INSTANCE and q["codigo"] == SCENARIO_QUEUE:
+        p135 = round(rng.uniform(24, 31), 2)
     hit5 = round(rng.uniform(18, 42), 2)
     d1 = {"QtAgentsAvailable": available, "QtAgentsTalking": talking, "QtAgentsAcw": acw,
           "QtAgentsPaused": paused, "QtAgentsOther": 0, "QtAgentsDialing": 0,
@@ -87,13 +97,16 @@ def queue_row(q, ts: datetime, rng: random.Random):
             lat_q, lat_s, 0.0, json.dumps(d1, ensure_ascii=False), json.dumps(d2, ensure_ascii=False))
 
 
-def infra_rows(inst: str, gateways: list[str], ts: datetime, rng: random.Random):
+def infra_rows(inst: str, gateways: list[str], ts: datetime, rng: random.Random, scenario: bool = False):
     load = daily_wave(ts)
     rows = []
     gw_list, trunk_list = [], []
     for name in gateways:
         total = 240
         busy = int(total * min(0.98, load * rng.uniform(0.5, 1.1)))
+        if scenario and inst == SCENARIO_INSTANCE:
+            share = rng.uniform(0.08, 0.15) if name in SCENARIO_LOW_GATEWAYS else rng.uniform(0.84, 0.96)
+            busy = int(total * share)
         gw_list.append({"NmGateway": name, "QtValidsTotal": total, "QtValidsBusy": busy,
                         "QtValidsIdle": total - busy, "VlPercValidsBusy": round(100 * busy / total, 2),
                         "QtInvalidsTotal": rng.randint(0, 3)})
@@ -113,12 +126,12 @@ def infra_rows(inst: str, gateways: list[str], ts: datetime, rng: random.Random)
     return rows
 
 
-def write_tick(store, queues, gateways, ts, rng):
+def write_tick(store, queues, gateways, ts, rng, scenario=False):
     store.many("INSERT INTO queue_snapshot VALUES(" + ",".join(["?"] * 31) + ")",
-               [queue_row(q, ts, rng) for q in queues])
+               [queue_row(q, ts, rng, scenario) for q in queues])
     insts = sorted({q["instancia"] for q in queues})
     store.many("INSERT INTO infra_snapshot VALUES(?,?,?,?,?,?,?,?,?,?,?)",
-               [r for inst in insts for r in infra_rows(inst, gateways.get(inst, []), ts, rng)])
+               [r for inst in insts for r in infra_rows(inst, gateways.get(inst, []), ts, rng, scenario)])
 
 
 def ensure_demo_user():
@@ -148,13 +161,13 @@ def main() -> int:
     now = datetime.now(timezone.utc).replace(microsecond=0)
     ts = now - timedelta(hours=args.hours)
     while ts <= now:
-        write_tick(store, queues, gateways, ts, rng)
+        write_tick(store, queues, gateways, ts, rng, scenario=now - ts <= SCENARIO_HISTORY)
         ts += timedelta(seconds=STEP_S)
     ensure_demo_user()
     print(f"Base demo pronta: {args.db} ({len(queues)} filas fictícias). Login: {DEMO_LOGIN}")
     while args.follow:
         time.sleep(FOLLOW_S)
-        write_tick(store, queues, gateways, datetime.now(timezone.utc).replace(microsecond=0), rng)
+        write_tick(store, queues, gateways, datetime.now(timezone.utc).replace(microsecond=0), rng, scenario=True)
     return 0
 
 
